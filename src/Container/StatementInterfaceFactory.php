@@ -13,10 +13,10 @@ final class StatementInterfaceFactory
     public function __invoke(
         ContainerInterface $container,
         string $requestedName,
-        ?array $options = null
+        ?array $options = null,
     ): StatementInterface {
         return new Pgsql\Statement(
-            options: $options['options'] ?? false
+            options: $options['options'] ?? false,
         );
     }
 }

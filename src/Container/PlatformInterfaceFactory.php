@@ -17,18 +17,18 @@ final class PlatformInterfaceFactory
     public function __invoke(
         ContainerInterface $container,
         string $requestedName,
-        ?array $options = null
+        ?array $options = null,
     ): PlatformInterface&Pgsql\AdapterPlatform {
         $driver = $options['driver'] ?? null;
         if (
             ! $driver instanceof Pgsql\Driver
-            && ! $driver instanceof Pgsql\Pdo\Driver
+                && ! $driver instanceof Pgsql\Pdo\Driver
         ) {
             // todo: Once latest PR is merged for 0.5.0 update to use PhpDB\Exception\ContainerException
             throw ContainerException::forService(
                 PlatformInterface::class,
                 self::class,
-                'Invalid or missing driver provided'
+                'Invalid or missing driver provided',
             );
         }
         return new Pgsql\AdapterPlatform($driver);

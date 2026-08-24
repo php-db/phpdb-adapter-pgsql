@@ -17,17 +17,6 @@ final class AdapterPlatformTest extends TestCase
 {
     use SetupTrait;
 
-    public function testQuoteValueWithPgsql(): void
-    {
-        $adapter = $this->getAdapter(self::NATIVE_ADAPTER);
-        $pgsql   = $adapter->getPlatform();
-        $this->expectException(VunerablePlatformQuoteException::class);
-        $value = $pgsql->quoteValue('value');
-        self::assertEquals('\'value\'', $value);
-        // Should this assertion be?
-        //todo:  self::assertEquals('E\'value\'', $value);
-    }
-
     public function testQuoteValueWithPdoPgsql(): void
     {
         $adapter = $this->getAdapter(self::PDO_ADAPTER);
@@ -35,5 +24,17 @@ final class AdapterPlatformTest extends TestCase
         //$this->expectException(VunerablePlatformQuoteException::class);
         $value = $pgsql->quoteValue('value');
         self::assertEquals('\'value\'', $value);
+    }
+
+    public function testQuoteValueWithPgsql(): void
+    {
+        $adapter = $this->getAdapter(self::NATIVE_ADAPTER);
+        $pgsql   = $adapter->getPlatform();
+        $this->expectException(VunerablePlatformQuoteException::class);
+        $value = $pgsql->quoteValue('value');
+        self::assertEquals('\'value\'', $value);
+
+        // Should this assertion be?
+        //todo:  self::assertEquals('E\'value\'', $value);
     }
 }

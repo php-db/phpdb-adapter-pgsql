@@ -22,10 +22,7 @@ use function pg_last_error;
 use function pg_prepare;
 use function preg_replace_callback;
 
-class Statement implements
-    StatementInterface,
-    DriverAwareInterface,
-    ProfilerAwareInterface
+class Statement implements StatementInterface, DriverAwareInterface, ProfilerAwareInterface
 {
     protected bool $bufferResults = false;
 
@@ -45,100 +42,13 @@ class Statement implements
 
     public function __construct(
         protected ParameterContainer $parameterContainer = new ParameterContainer(),
-        array|bool $options = false
+        array|bool $options = false,
     ) {
         if (is_array($options)) {
             $this->bufferResults = $options['buffer_results'] ?? false;
         } else {
             $this->bufferResults = $options;
         }
-    }
-
-    #[Override]
-    public function setDriver(
-        DriverInterface $driver
-    ): StatementInterface&DriverAwareInterface&ProfilerAwareInterface {
-        $this->driver = $driver;
-        return $this;
-    }
-
-    #[Override]
-    public function setProfiler(
-        ProfilerInterface $profiler
-    ): StatementInterface&DriverAwareInterface&ProfilerAwareInterface {
-        $this->profiler = $profiler;
-        return $this;
-    }
-
-    public function getProfiler(): ?ProfilerInterface
-    {
-        return $this->profiler;
-    }
-
-    public function initialize(PgSqlConnection $pgsql): void
-    {
-        $this->pgsql = $pgsql;
-    }
-
-    #[Override]
-    public function getResource(): PgSqlResult|false
-    {
-        return $this->resource;
-    }
-
-    #[Override]
-    public function setSql(
-        ?string $sql
-    ): StatementInterface&DriverAwareInterface&ProfilerAwareInterface {
-        $this->sql = $sql;
-        return $this;
-    }
-
-    #[Override]
-    public function getSql(): ?string
-    {
-        return $this->sql;
-    }
-
-    #[Override]
-    public function setParameterContainer(
-        ParameterContainer $parameterContainer
-    ): StatementInterface&DriverAwareInterface&ProfilerAwareInterface {
-        $this->parameterContainer = $parameterContainer;
-        return $this;
-    }
-
-    #[Override]
-    public function getParameterContainer(): ParameterContainer
-    {
-        return $this->parameterContainer;
-    }
-
-    #[Override]
-    public function prepare(
-        ?string $sql = null
-    ): StatementInterface&DriverAwareInterface&ProfilerAwareInterface {
-        $sql = $sql ?? $this->sql;
-
-        $pCount = 1;
-        $sql    = preg_replace_callback(
-            '#\$\##',
-            function () use (&$pCount) {
-                return '$' . $pCount++;
-            },
-            $sql
-        );
-
-        $this->sql            = $sql;
-        $this->statementName .= ++static::$statementIndex;
-        $this->resource       = pg_prepare($this->pgsql, $this->statementName, $sql);
-        return $this;
-    }
-
-    #[Override]
-    public function isPrepared(): bool
-    {
-        return isset($this->resource);
     }
 
     /**
@@ -174,10 +84,97 @@ class Statement implements
 
         $this->profiler?->profilerFinish();
 
-        if ($resultResource === false) {
+        if (false === $resultResource) {
             throw new Exception\InvalidQueryException(pg_last_error());
         }
         /** @phpstan-ignore argument.type */
         return $this->driver->createResult($resultResource);
+    }
+
+    #[Override]
+    public function getParameterContainer(): ParameterContainer
+    {
+        return $this->parameterContainer;
+    }
+
+    public function getProfiler(): ?ProfilerInterface
+    {
+        return $this->profiler;
+    }
+
+    #[Override]
+    public function getResource(): PgSqlResult|false
+    {
+        return $this->resource;
+    }
+
+    #[Override]
+    public function getSql(): ?string
+    {
+        return $this->sql;
+    }
+
+    public function initialize(PgSqlConnection $pgsql): void
+    {
+        $this->pgsql = $pgsql;
+    }
+
+    #[Override]
+    public function isPrepared(): bool
+    {
+        return isset($this->resource);
+    }
+
+    #[Override]
+    public function prepare(
+        ?string $sql = null,
+    ): StatementInterface&DriverAwareInterface&ProfilerAwareInterface {
+        $sql ??= $this->sql;
+
+        $pCount = 1;
+        $sql    = preg_replace_callback(
+            '#\$\##',
+            static function () use (&$pCount) {
+                return '$' . $pCount++;
+            },
+            $sql,
+        );
+
+        $this->sql           = $sql;
+        $this->statementName .= ++static::$statementIndex;
+        $this->resource      = pg_prepare($this->pgsql, $this->statementName, $sql);
+        return $this;
+    }
+
+    #[Override]
+    public function setDriver(
+        DriverInterface $driver,
+    ): StatementInterface&DriverAwareInterface&ProfilerAwareInterface {
+        $this->driver = $driver;
+        return $this;
+    }
+
+    #[Override]
+    public function setParameterContainer(
+        ParameterContainer $parameterContainer,
+    ): StatementInterface&DriverAwareInterface&ProfilerAwareInterface {
+        $this->parameterContainer = $parameterContainer;
+        return $this;
+    }
+
+    #[Override]
+    public function setProfiler(
+        ProfilerInterface $profiler,
+    ): StatementInterface&DriverAwareInterface&ProfilerAwareInterface {
+        $this->profiler = $profiler;
+        return $this;
+    }
+
+    #[Override]
+    public function setSql(
+        ?string $sql,
+    ): StatementInterface&DriverAwareInterface&ProfilerAwareInterface {
+        $this->sql = $sql;
+        return $this;
     }
 }

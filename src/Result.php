@@ -25,67 +25,34 @@ class Result implements ResultInterface
 
     protected mixed $generatedValue;
 
-    public function initialize(PgSqlResult $resource, string|int|null $generatedValue): void
+    #[Override]
+    public function buffer(): void {}
+
+    #[Override]
+    public function count(): int
     {
-        $this->resource       = $resource;
-        $this->count          = pg_num_rows($this->resource);
-        $this->generatedValue = $generatedValue;
+        return $this->count;
     }
 
     #[Override]
     public function current(): array|false
     {
-        if ($this->count === 0) {
+        if (0 === $this->count) {
             return false;
         }
         return pg_fetch_assoc($this->resource, $this->position);
     }
 
     #[Override]
-    public function next(): void
-    {
-        $this->position++;
-    }
-
-    #[Override]
-    public function key(): int
-    {
-        return $this->position;
-    }
-
-    #[Override]
-    public function valid(): bool
-    {
-        return $this->position < $this->count;
-    }
-
-    #[Override]
-    public function rewind(): void
-    {
-        $this->position = 0;
-    }
-
-    #[Override]
-    public function buffer(): void
-    {
-    }
-
-    #[Override]
-    public function isBuffered(): false
-    {
-        return false;
-    }
-
-    #[Override]
-    public function isQueryResult(): bool
-    {
-        return pg_num_fields($this->resource) > 0;
-    }
-
-    #[Override]
     public function getAffectedRows(): int
     {
         return pg_affected_rows($this->resource);
+    }
+
+    #[Override]
+    public function getFieldCount(): int
+    {
+        return pg_num_fields($this->resource);
     }
 
     #[Override]
@@ -102,15 +69,46 @@ class Result implements ResultInterface
         return $this->resource;
     }
 
-    #[Override]
-    public function count(): int
+    public function initialize(PgSqlResult $resource, string|int|null $generatedValue): void
     {
-        return $this->count;
+        $this->resource       = $resource;
+        $this->count          = pg_num_rows($this->resource);
+        $this->generatedValue = $generatedValue;
     }
 
     #[Override]
-    public function getFieldCount(): int
+    public function isBuffered(): false
     {
-        return pg_num_fields($this->resource);
+        return false;
+    }
+
+    #[Override]
+    public function isQueryResult(): bool
+    {
+        return pg_num_fields($this->resource) > 0;
+    }
+
+    #[Override]
+    public function key(): int
+    {
+        return $this->position;
+    }
+
+    #[Override]
+    public function next(): void
+    {
+        $this->position++;
+    }
+
+    #[Override]
+    public function rewind(): void
+    {
+        $this->position = 0;
+    }
+
+    #[Override]
+    public function valid(): bool
+    {
+        return $this->position < $this->count;
     }
 }

@@ -57,17 +57,17 @@ final class ConfigProviderTest extends TestCase
         ],
     ];
 
+    #[Depends('testProvidesExpectedConfiguration')]
+    public function testInvocationProvidesDependencyConfiguration(Pgsql\ConfigProvider $provider): void
+    {
+        self::assertEquals(['dependencies' => $provider->getDependencies()], $provider());
+    }
+
     public function testProvidesExpectedConfiguration(): Pgsql\ConfigProvider
     {
         $provider = new Pgsql\ConfigProvider();
         self::assertEquals($this->config, $provider->getDependencies());
 
         return $provider;
-    }
-
-    #[Depends('testProvidesExpectedConfiguration')]
-    public function testInvocationProvidesDependencyConfiguration(Pgsql\ConfigProvider $provider): void
-    {
-        self::assertEquals(['dependencies' => $provider->getDependencies()], $provider());
     }
 }

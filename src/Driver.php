@@ -36,12 +36,12 @@ class Driver implements DriverInterface, ProfilerAwareInterface
         protected readonly DriverAwareInterface&ConnectionInterface&Connection $connection,
         protected readonly DriverAwareInterface&StatementInterface&Statement $statementPrototype = new Statement(),
         protected readonly ResultInterface&Result $resultPrototype = new Result(),
-        array $options = []
+        array $options = [],
     ) {
         $this->checkEnvironment();
 
         //todo: verify this usage
-        $options = array_intersect_key(array_merge($this->options, $options), $this->options);
+        $options = array_intersect_key([...$this->options, ...$options], $this->options);
 
         $this->connection->setDriver($this);
 
@@ -49,44 +49,29 @@ class Driver implements DriverInterface, ProfilerAwareInterface
     }
 
     #[Override]
-    public function setProfiler(
-        ProfilerInterface $profiler
-    ): DriverInterface&ProfilerAwareInterface {
-        $this->profiler = $profiler;
-
-        // @phpstan-ignore instanceof.alwaysTrue
-        if ($this->connection instanceof ProfilerAwareInterface) {
-            $this->connection->setProfiler($profiler);
-        }
-
-        // @phpstan-ignore instanceof.alwaysTrue
-        if ($this->statementPrototype instanceof ProfilerAwareInterface) {
-            $this->statementPrototype->setProfiler($profiler);
-        }
-
-        return $this;
-    }
-
-    public function getProfiler(): ?ProfilerInterface
-    {
-        return $this->profiler;
-    }
-
-    #[Override]
     public function checkEnvironment(): bool
     {
         if (! extension_loaded('pgsql')) {
             throw new Exception\RuntimeException(
-                'The PostgreSQL (pgsql) extension is required for this Driver but the extension is not loaded'
+                'The PostgreSQL (pgsql) extension is required for this Driver but the extension is not loaded',
             );
         }
         return true;
     }
 
+    /**
+     * Create result
+     *
+     * @param PgSqlResult|resource $resource
+     */
     #[Override]
-    public function getConnection(): ConnectionInterface&Connection
+    public function createResult($resource): ResultInterface&Result
     {
-        return $this->connection;
+        /** @var Result $result */
+        $result = clone $this->resultPrototype;
+        $result->initialize($resource, $this->connection->getLastGeneratedValue());
+
+        return $result;
     }
 
     /**
@@ -112,36 +97,16 @@ class Driver implements DriverInterface, ProfilerAwareInterface
         return $statement;
     }
 
-    /**
-     * Create result
-     *
-     * @param PgSqlResult|resource $resource
-     */
-    #[Override]
-    public function createResult($resource): ResultInterface&Result
-    {
-        /** @var Result $result */
-        $result = clone $this->resultPrototype;
-        $result->initialize($resource, $this->connection->getLastGeneratedValue());
-
-        return $result;
-    }
-
-    public function getResultPrototype(): ResultInterface&Result
-    {
-        return $this->resultPrototype;
-    }
-
-    #[Override]
-    public function getPrepareType(): string
-    {
-        return self::PARAMETERIZATION_POSITIONAL;
-    }
-
     #[Override]
     public function formatParameterName(string $name, ?string $type = null): string
     {
         return '$#';
+    }
+
+    #[Override]
+    public function getConnection(): ConnectionInterface&Connection
+    {
+        return $this->connection;
     }
 
     /**
@@ -151,5 +116,40 @@ class Driver implements DriverInterface, ProfilerAwareInterface
     public function getLastGeneratedValue(?string $name = null): int|string|false|null
     {
         return $this->connection->getLastGeneratedValue($name);
+    }
+
+    #[Override]
+    public function getPrepareType(): string
+    {
+        return self::PARAMETERIZATION_POSITIONAL;
+    }
+
+    public function getProfiler(): ?ProfilerInterface
+    {
+        return $this->profiler;
+    }
+
+    public function getResultPrototype(): ResultInterface&Result
+    {
+        return $this->resultPrototype;
+    }
+
+    #[Override]
+    public function setProfiler(
+        ProfilerInterface $profiler,
+    ): DriverInterface&ProfilerAwareInterface {
+        $this->profiler = $profiler;
+
+        // @phpstan-ignore instanceof.alwaysTrue
+        if ($this->connection instanceof ProfilerAwareInterface) {
+            $this->connection->setProfiler($profiler);
+        }
+
+        // @phpstan-ignore instanceof.alwaysTrue
+        if ($this->statementPrototype instanceof ProfilerAwareInterface) {
+            $this->statementPrototype->setProfiler($profiler);
+        }
+
+        return $this;
     }
 }

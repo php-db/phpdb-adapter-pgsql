@@ -14,12 +14,12 @@ final class PdoStatementFactory
     public function __invoke(
         ContainerInterface $container,
         string $requestedName,
-        ?array $options = null
+        ?array $options = null,
     ): StatementInterface&PdoStatement {
         $statementOptions = $options['options'] ?? [];
         return new PdoStatement(
             parameterContainer: new ParameterContainer(),
-            options: $statementOptions
+            options: $statementOptions,
         );
     }
 }

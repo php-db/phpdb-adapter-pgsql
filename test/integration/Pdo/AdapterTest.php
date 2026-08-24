@@ -29,15 +29,6 @@ class AdapterTest extends TestCase
         $this->assertInstanceOf(ConnectionInterface::class, $connection);
     }
 
-    public function testGetCurrentSchema(): void
-    {
-        /** @var AdapterInterface&SchemaAwareInterface&Adapter $adapter */
-        $adapter = $this->getAdapter(self::PDO_ADAPTER);
-        $schema  = $adapter->getCurrentSchema();
-        self::assertIsString($schema);
-        self::assertNotEmpty($schema);
-    }
-
     public function testDriverDisconnectAfterQuoteWithPlatform(): void
     {
         $isTcpConnection = $this->isTcpConnection();
@@ -76,9 +67,18 @@ class AdapterTest extends TestCase
         }
     }
 
+    public function testGetCurrentSchema(): void
+    {
+        /** @var AdapterInterface&SchemaAwareInterface&Adapter $adapter */
+        $adapter = $this->getAdapter(self::PDO_ADAPTER);
+        $schema  = $adapter->getCurrentSchema();
+        self::assertIsString($schema);
+        self::assertNotEmpty($schema);
+    }
+
     protected function isTcpConnection(): bool
     {
         $hostName = $this->getHostname();
-        return $hostName !== 'localhost' && $hostName !== '127.0.0.1';
+        return 'localhost' !== $hostName && '127.0.0.1' !== $hostName;
     }
 }
