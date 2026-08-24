@@ -13,7 +13,7 @@ use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\TestCase;
 
 #[CoversMethod(Adapter::class, 'getCurrentSchema')]
-#[CoversMethod(AdapterInterface::class, '__construct')]
+#[CoversMethod(Adapter::class, '__construct')]
 #[CoversMethod(SchemaAwareInterface::class, 'getCurrentSchema')]
 #[CoversMethod(ConnectionInterface::class, 'connect')]
 #[CoversMethod(ConnectionInterface::class, 'disconnect')]
