@@ -6,14 +6,3 @@ parameters:
 			count: 1
 			path: src/Container/ConnectionInterfaceFactory.php
 
-		-
-			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, array\<int, array\<int\|string, string\>\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Metadata/Source.php
-
-		-
-			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, array\<int, list\<string\>\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Metadata/Source.php

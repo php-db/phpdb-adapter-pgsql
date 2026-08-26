@@ -7,6 +7,9 @@ namespace PhpDb\Pgsql;
 use Override;
 use PgSql\Result as PgSqlResult;
 use PhpDb\Adapter\Driver\ResultInterface;
+use PhpDb\Adapter\Exception;
+use PhpDb\ResultSet\ResultSet;
+use PhpDb\ResultSet\ResultSetInterface;
 
 use function pg_affected_rows;
 use function pg_fetch_assoc;
@@ -92,6 +95,26 @@ class Result implements ResultInterface
     public function getGeneratedValue(): int|string|false|null
     {
         return $this->generatedValue;
+    }
+
+    /**
+     * @throws Exception\RuntimeException When this result is not a query result.
+     */
+    #[Override]
+    public function getQueryResult(?ResultSetInterface $resultPrototype = null): ResultSetInterface
+    {
+        if (! $this->isQueryResult()) {
+            throw new Exception\RuntimeException(
+                'Cannot produce a query result set from a result that is not a query result;'
+                    . ' check isQueryResult() first'
+            );
+        }
+
+        $resultPrototype ??= new ResultSet();
+        $resultSet         = clone $resultPrototype;
+        $resultSet->initialize($this);
+
+        return $resultSet;
     }
 
     /**
