@@ -229,6 +229,12 @@ message = "TODO should be tagged with (@username) or (#issue)."
 count = 2
 
 [[issues]]
+file = "src/Result.php"
+code = "too-many-methods"
+message = "Class has too many methods."
+count = 1
+
+[[issues]]
 file = "src/Statement.php"
 code = "halstead"
 message = "Method has a high halstead difficulty"
@@ -403,6 +409,36 @@ message = "Use `#[Test]` attribute instead of `test` prefix on method `testLastI
 count = 1
 
 [[issues]]
+file = "test/integration/ResultTest.php"
+code = "assertion-style"
+message = "Inconsistent assertions style."
+count = 3
+
+[[issues]]
+file = "test/integration/ResultTest.php"
+code = "prefer-test-attribute"
+message = "Use `#[Test]` attribute instead of `test` prefix on method `testAStatementReturningNoFieldsIsNotAQueryResult`."
+count = 1
+
+[[issues]]
+file = "test/integration/ResultTest.php"
+code = "prefer-test-attribute"
+message = "Use `#[Test]` attribute instead of `test` prefix on method `testGetQueryResultIteratesTheSelectedRows`."
+count = 1
+
+[[issues]]
+file = "test/integration/ResultTest.php"
+code = "prefer-test-attribute"
+message = "Use `#[Test]` attribute instead of `test` prefix on method `testGetQueryResultRejectsAStatementThatReturnsNoFields`."
+count = 1
+
+[[issues]]
+file = "test/integration/ResultTest.php"
+code = "prefer-test-attribute"
+message = "Use `#[Test]` attribute instead of `test` prefix on method `testGetQueryResultSeedsTheResultSetFromASelect`."
+count = 1
+
+[[issues]]
 file = "test/unit/Adapter/ConfigProviderTest.php"
 code = "assertion-style"
 message = "Inconsistent assertions style."
@@ -436,4 +472,28 @@ count = 1
 file = "test/unit/Adapter/SetupTest.php"
 code = "prefer-test-attribute"
 message = "Use `#[Test]` attribute instead of `test` prefix on method `testAdapterInterfaceFactoryBuildsNativeDriver`."
+count = 1
+
+[[issues]]
+file = "test/unit/ResultTest.php"
+code = "assertion-style"
+message = "Inconsistent assertions style."
+count = 2
+
+[[issues]]
+file = "test/unit/ResultTest.php"
+code = "prefer-test-attribute"
+message = "Use `#[Test]` attribute instead of `test` prefix on method `testGetQueryResultClonesTheGivenPrototype`."
+count = 1
+
+[[issues]]
+file = "test/unit/ResultTest.php"
+code = "prefer-test-attribute"
+message = "Use `#[Test]` attribute instead of `test` prefix on method `testGetQueryResultRejectsAResultThatIsNotAQueryResult`."
+count = 1
+
+[[issues]]
+file = "test/unit/ResultTest.php"
+code = "prefer-test-attribute"
+message = "Use `#[Test]` attribute instead of `test` prefix on method `testGetQueryResultSeedsTheResultSetFromTheResult`."
 count = 1

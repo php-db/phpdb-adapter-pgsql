@@ -16,11 +16,11 @@ class ResultTest extends TestCase
 {
     use SetupTrait;
 
-    public function testGetQueryResultSeedsTheResultSetFromASelect(): void
+    public function testAStatementReturningNoFieldsIsNotAQueryResult(): void
     {
-        $result = $this->getAdapter()->executeQuery('SELECT id, name, value FROM test');
+        $result = $this->getAdapter()->executeQuery('SET search_path TO public');
 
-        self::assertSame($result->getFieldCount(), $result->getQueryResult()->getFieldCount());
+        self::assertFalse($result->isQueryResult());
     }
 
     public function testGetQueryResultIteratesTheSelectedRows(): void
@@ -35,13 +35,6 @@ class ResultTest extends TestCase
         self::assertSame(['foo', 'bar'], $names);
     }
 
-    public function testAStatementReturningNoFieldsIsNotAQueryResult(): void
-    {
-        $result = $this->getAdapter()->executeQuery('SET search_path TO public');
-
-        self::assertFalse($result->isQueryResult());
-    }
-
     public function testGetQueryResultRejectsAStatementThatReturnsNoFields(): void
     {
         $result = $this->getAdapter()->executeQuery('SET search_path TO public');
@@ -49,9 +42,16 @@ class ResultTest extends TestCase
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage(
             'Cannot produce a query result set from a result that is not a query result;'
-                . ' check isQueryResult() first'
+                . ' check isQueryResult() first',
         );
 
         $result->getQueryResult();
+    }
+
+    public function testGetQueryResultSeedsTheResultSetFromASelect(): void
+    {
+        $result = $this->getAdapter()->executeQuery('SELECT id, name, value FROM test');
+
+        self::assertSame($result->getFieldCount(), $result->getQueryResult()->getFieldCount());
     }
 }

@@ -14,13 +14,6 @@ use PHPUnit\Framework\TestCase;
 #[CoversMethod(Result::class, 'getQueryResult')]
 class ResultTest extends TestCase
 {
-    public function testGetQueryResultSeedsTheResultSetFromTheResult(): void
-    {
-        $resultSet = (new ResultStub(true, 3))->getQueryResult();
-
-        self::assertSame(3, $resultSet->getFieldCount());
-    }
-
     public function testGetQueryResultClonesTheGivenPrototype(): void
     {
         $prototype = new ResultSet();
@@ -35,9 +28,16 @@ class ResultTest extends TestCase
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage(
             'Cannot produce a query result set from a result that is not a query result;'
-                . ' check isQueryResult() first'
+                . ' check isQueryResult() first',
         );
 
         (new ResultStub(false))->getQueryResult();
+    }
+
+    public function testGetQueryResultSeedsTheResultSetFromTheResult(): void
+    {
+        $resultSet = (new ResultStub(true, 3))->getQueryResult();
+
+        self::assertSame(3, $resultSet->getFieldCount());
     }
 }

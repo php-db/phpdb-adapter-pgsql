@@ -73,12 +73,12 @@ class Result implements ResultInterface
         if (! $this->isQueryResult()) {
             throw new Exception\RuntimeException(
                 'Cannot produce a query result set from a result that is not a query result;'
-                    . ' check isQueryResult() first'
+                    . ' check isQueryResult() first',
             );
         }
 
         $resultPrototype ??= new ResultSet();
-        $resultSet         = clone $resultPrototype;
+        $resultSet       = clone $resultPrototype;
         $resultSet->initialize($this);
 
         return $resultSet;
