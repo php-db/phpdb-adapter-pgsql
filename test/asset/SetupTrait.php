@@ -102,12 +102,8 @@ trait SetupTrait
                     PlatformInterface::class      => Pgsql\AdapterPlatform::class,
                 ],
                 'factories' => [
-                    Pgsql\Driver::class     => static function (ContainerInterface $container) use ($driverMock) {
-                        return $driverMock;
-                    },
-                    Pgsql\Pdo\Driver::class => static function (ContainerInterface $container) use ($pdoDriverMock) {
-                        return $pdoDriverMock;
-                    },
+                    Pgsql\Driver::class     => static fn(ContainerInterface $container) => $driverMock,
+                    Pgsql\Pdo\Driver::class => static fn(ContainerInterface $container) => $pdoDriverMock,
                 ],
             ],
         ];

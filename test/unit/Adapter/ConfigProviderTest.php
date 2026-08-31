@@ -16,6 +16,7 @@ use PhpDb\Pgsql\Pdo\Connection as PdoConnection;
 use PhpDb\Pgsql\Pdo\Driver as PdoDriver;
 use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 #[CoversMethod(Pgsql\ConfigProvider::class, '__invoke')]
@@ -57,16 +58,18 @@ final class ConfigProviderTest extends TestCase
         ],
     ];
 
-    #[Depends('testProvidesExpectedConfiguration')]
-    public function testInvocationProvidesDependencyConfiguration(Pgsql\ConfigProvider $provider): void
+    #[Test]
+    #[Depends('providesExpectedConfiguration')]
+    public function invocationProvidesDependencyConfiguration(Pgsql\ConfigProvider $provider): void
     {
-        self::assertEquals(['dependencies' => $provider->getDependencies()], $provider());
+        static::assertEquals(['dependencies' => $provider->getDependencies()], $provider());
     }
 
-    public function testProvidesExpectedConfiguration(): Pgsql\ConfigProvider
+    #[Test]
+    public function providesExpectedConfiguration(): Pgsql\ConfigProvider
     {
         $provider = new Pgsql\ConfigProvider();
-        self::assertEquals($this->config, $provider->getDependencies());
+        static::assertEquals($this->config, $provider->getDependencies());
 
         return $provider;
     }

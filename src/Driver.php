@@ -16,7 +16,6 @@ use PhpDb\Adapter\Profiler\ProfilerAwareInterface;
 use PhpDb\Adapter\Profiler\ProfilerInterface;
 
 use function array_intersect_key;
-use function array_merge;
 use function extension_loaded;
 use function is_string;
 

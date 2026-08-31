@@ -9,22 +9,25 @@ use PhpDb\Pgsql\Result;
 use PhpDb\ResultSet\ResultSet;
 use PhpDbTestAsset\Pgsql\ResultStub;
 use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 #[CoversMethod(Result::class, 'getQueryResult')]
 class ResultTest extends TestCase
 {
-    public function testGetQueryResultClonesTheGivenPrototype(): void
+    #[Test]
+    public function getQueryResultClonesTheGivenPrototype(): void
     {
         $prototype = new ResultSet();
 
         $result    = new ResultStub(true, 1);
         $resultSet = $result->getQueryResult($prototype);
 
-        self::assertNotSame($prototype, $resultSet);
+        static::assertNotSame($prototype, $resultSet);
     }
 
-    public function testGetQueryResultRejectsAResultThatIsNotAQueryResult(): void
+    #[Test]
+    public function getQueryResultRejectsAResultThatIsNotAQueryResult(): void
     {
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage(
@@ -36,11 +39,12 @@ class ResultTest extends TestCase
         $result->getQueryResult();
     }
 
-    public function testGetQueryResultSeedsTheResultSetFromTheResult(): void
+    #[Test]
+    public function getQueryResultSeedsTheResultSetFromTheResult(): void
     {
         $result    = new ResultStub(true, 3);
         $resultSet = $result->getQueryResult();
 
-        self::assertSame(3, $resultSet->getFieldCount());
+        static::assertSame(3, $resultSet->getFieldCount());
     }
 }

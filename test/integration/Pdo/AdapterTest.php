@@ -10,6 +10,7 @@ use PhpDb\Adapter\Driver\ConnectionInterface;
 use PhpDb\Adapter\SchemaAwareInterface;
 use PhpDbTestAsset\Pgsql\SetupTrait;
 use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 #[CoversMethod(Adapter::class, 'getCurrentSchema')]
@@ -22,14 +23,16 @@ class AdapterTest extends TestCase
 {
     use SetupTrait;
 
-    public function testConnection(): void
+    #[Test]
+    public function connection(): void
     {
         /** @var ConnectionInterface $connection */
         $connection = $this->getAdapter(self::PDO_ADAPTER)->getDriver()->getConnection();
-        $this->assertInstanceOf(ConnectionInterface::class, $connection);
+        static::assertInstanceOf(ConnectionInterface::class, $connection);
     }
 
-    public function testDriverDisconnectAfterQuoteWithPlatform(): void
+    #[Test]
+    public function driverDisconnectAfterQuoteWithPlatform(): void
     {
         $isTcpConnection = $this->isTcpConnection();
 
@@ -38,42 +41,43 @@ class AdapterTest extends TestCase
         $connection = $adapter->getDriver()->getConnection();
         $connection->connect();
         $isConnected = $connection->isConnected();
-        self::assertTrue($connection->isConnected());
+        static::assertTrue($connection->isConnected());
         if ($isTcpConnection) {
-            self::assertTrue($connection->isConnected());
+            static::assertTrue($connection->isConnected());
         }
 
         // todo: why is this not disconnecting
         $connection->disconnect();
         $isConnected = $connection->isConnected();
-        self::assertFalse($connection->isConnected());
+        static::assertFalse($connection->isConnected());
         if ($isTcpConnection) {
-            self::assertFalse($connection->isConnected());
+            static::assertFalse($connection->isConnected());
         }
 
         $connection->connect();
-        self::assertTrue($connection->isConnected());
+        static::assertTrue($connection->isConnected());
         if ($isTcpConnection) {
-            self::assertTrue($connection->isConnected());
+            static::assertTrue($connection->isConnected());
         }
 
         $adapter->getPlatform()->quoteValue('test');
 
         $connection->disconnect();
 
-        self::assertFalse($connection->isConnected());
+        static::assertFalse($connection->isConnected());
         if ($isTcpConnection) {
-            self::assertFalse($connection->isConnected());
+            static::assertFalse($connection->isConnected());
         }
     }
 
-    public function testGetCurrentSchema(): void
+    #[Test]
+    public function getCurrentSchema(): void
     {
         /** @var AdapterInterface&SchemaAwareInterface&Adapter $adapter */
         $adapter = $this->getAdapter(self::PDO_ADAPTER);
         $schema  = $adapter->getCurrentSchema();
-        self::assertIsString($schema);
-        self::assertNotEmpty($schema);
+        static::assertIsString($schema);
+        static::assertNotEmpty($schema);
     }
 
     protected function isTcpConnection(): bool

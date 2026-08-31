@@ -66,6 +66,7 @@ class Result implements ResultInterface
 
     /**
      * @throws Exception\RuntimeException When this result is not a query result.
+     * @throws \Exception When the result set rejects this result as its data source.
      */
     #[Override]
     public function getQueryResult(?ResultSetInterface $resultPrototype = null): ResultSetInterface

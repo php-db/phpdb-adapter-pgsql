@@ -775,12 +775,6 @@ message = 'Could not infer a precise return type for function `PhpDb\Pgsql\Resul
 count = 1
 
 [[issues]]
-file = "src/Result.php"
-code = "unhandled-thrown-type"
-message = 'Potentially unhandled exception `Exception` in `PhpDb\Pgsql\Result::getQueryResult`.'
-count = 1
-
-[[issues]]
 file = "src/Statement.php"
 code = "class-must-be-final"
 message = 'Class `PhpDb\Pgsql\Statement` should be declared `final`.'
