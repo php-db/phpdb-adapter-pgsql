@@ -19,8 +19,7 @@ use function pg_num_rows;
 // phpcs:ignore SlevomatCodingStandard.Namespaces.UnusedUses.UnusedUse
 class Result implements ResultInterface
 {
-    /** @var PgSqlResult */
-    protected $resource;
+    protected PgSqlResult $resource;
 
     protected int $position = 0;
 
