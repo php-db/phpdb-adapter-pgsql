@@ -19,8 +19,7 @@ use function pg_num_rows;
 // phpcs:ignore SlevomatCodingStandard.Namespaces.UnusedUses.UnusedUse
 class Result implements ResultInterface
 {
-    /** @var PgSqlResult */
-    protected $resource;
+    protected PgSqlResult $resource;
 
     protected int $position = 0;
 
@@ -28,49 +27,76 @@ class Result implements ResultInterface
 
     protected mixed $generatedValue;
 
-    public function initialize(PgSqlResult $resource, string|int|null $generatedValue): void
+    #[Override]
+    public function buffer(): void {}
+
+    #[Override]
+    public function count(): int
     {
-        $this->resource       = $resource;
-        $this->count          = pg_num_rows($this->resource);
-        $this->generatedValue = $generatedValue;
+        return $this->count;
     }
 
     #[Override]
     public function current(): array|false
     {
-        if ($this->count === 0) {
+        if (0 === $this->count) {
             return false;
         }
         return pg_fetch_assoc($this->resource, $this->position);
     }
 
     #[Override]
-    public function next(): void
+    public function getAffectedRows(): int
     {
-        $this->position++;
+        return pg_affected_rows($this->resource);
     }
 
     #[Override]
-    public function key(): int
+    public function getFieldCount(): int
     {
-        return $this->position;
+        return pg_num_fields($this->resource);
     }
 
     #[Override]
-    public function valid(): bool
+    public function getGeneratedValue(): int|string|false|null
     {
-        return $this->position < $this->count;
+        return $this->generatedValue;
     }
 
+    /**
+     * @throws Exception\RuntimeException When this result is not a query result.
+     * @throws \Exception When the result set rejects this result as its data source.
+     */
     #[Override]
-    public function rewind(): void
+    public function getQueryResult(?ResultSetInterface $resultPrototype = null): ResultSetInterface
     {
-        $this->position = 0;
+        if (! $this->isQueryResult()) {
+            throw new Exception\RuntimeException(
+                'Cannot produce a query result set from a result that is not a query result;'
+                    . ' check isQueryResult() first',
+            );
+        }
+
+        $resultPrototype ??= new ResultSet();
+        $resultSet       = clone $resultPrototype;
+        $resultSet->initialize($this);
+
+        return $resultSet;
     }
 
-    #[Override]
-    public function buffer(): void
+    /**
+     * Get resource
+     */
+    public function getResource(): PgSqlResult
     {
+        return $this->resource;
+    }
+
+    public function initialize(PgSqlResult $resource, string|int|null $generatedValue): void
+    {
+        $this->resource       = $resource;
+        $this->count          = pg_num_rows($this->resource);
+        $this->generatedValue = $generatedValue;
     }
 
     #[Override]
@@ -86,54 +112,26 @@ class Result implements ResultInterface
     }
 
     #[Override]
-    public function getAffectedRows(): int
+    public function key(): int
     {
-        return pg_affected_rows($this->resource);
+        return $this->position;
     }
 
     #[Override]
-    public function getGeneratedValue(): int|string|false|null
+    public function next(): void
     {
-        return $this->generatedValue;
-    }
-
-    /**
-     * @throws Exception\RuntimeException When this result is not a query result.
-     */
-    #[Override]
-    public function getQueryResult(?ResultSetInterface $resultPrototype = null): ResultSetInterface
-    {
-        if (! $this->isQueryResult()) {
-            throw new Exception\RuntimeException(
-                'Cannot produce a query result set from a result that is not a query result;'
-                    . ' check isQueryResult() first'
-            );
-        }
-
-        $resultPrototype ??= new ResultSet();
-        $resultSet         = clone $resultPrototype;
-        $resultSet->initialize($this);
-
-        return $resultSet;
-    }
-
-    /**
-     * Get resource
-     */
-    public function getResource(): PgSqlResult
-    {
-        return $this->resource;
+        $this->position++;
     }
 
     #[Override]
-    public function count(): int
+    public function rewind(): void
     {
-        return $this->count;
+        $this->position = 0;
     }
 
     #[Override]
-    public function getFieldCount(): int
+    public function valid(): bool
     {
-        return pg_num_fields($this->resource);
+        return $this->position < $this->count;
     }
 }

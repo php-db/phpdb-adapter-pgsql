@@ -9,35 +9,42 @@ use PhpDb\Pgsql\Result;
 use PhpDb\ResultSet\ResultSet;
 use PhpDbTestAsset\Pgsql\ResultStub;
 use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 #[CoversMethod(Result::class, 'getQueryResult')]
 class ResultTest extends TestCase
 {
-    public function testGetQueryResultSeedsTheResultSetFromTheResult(): void
-    {
-        $resultSet = (new ResultStub(true, 3))->getQueryResult();
-
-        self::assertSame(3, $resultSet->getFieldCount());
-    }
-
-    public function testGetQueryResultClonesTheGivenPrototype(): void
+    #[Test]
+    public function getQueryResultClonesTheGivenPrototype(): void
     {
         $prototype = new ResultSet();
 
-        $resultSet = (new ResultStub(true, 1))->getQueryResult($prototype);
+        $result    = new ResultStub(true, 1);
+        $resultSet = $result->getQueryResult($prototype);
 
-        self::assertNotSame($prototype, $resultSet);
+        static::assertNotSame($prototype, $resultSet);
     }
 
-    public function testGetQueryResultRejectsAResultThatIsNotAQueryResult(): void
+    #[Test]
+    public function getQueryResultRejectsAResultThatIsNotAQueryResult(): void
     {
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage(
             'Cannot produce a query result set from a result that is not a query result;'
-                . ' check isQueryResult() first'
+                . ' check isQueryResult() first',
         );
 
-        (new ResultStub(false))->getQueryResult();
+        $result = new ResultStub(false);
+        $result->getQueryResult();
+    }
+
+    #[Test]
+    public function getQueryResultSeedsTheResultSetFromTheResult(): void
+    {
+        $result    = new ResultStub(true, 3);
+        $resultSet = $result->getQueryResult();
+
+        static::assertSame(3, $resultSet->getFieldCount());
     }
 }

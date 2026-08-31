@@ -1,44 +1,39 @@
 name: "Continuous Integration"
 
+# Branch protection blocks direct pushes to release branches, and pull_request
+# already re-triggers on every commit pushed to a PR branch (synchronize), so
+# there's no push:branches trigger here — only PRs (targeting numbered
+# release branches) and pushed version tags.
 on:
   pull_request:
-  push:
     branches:
+      - "[0-9]+.[0-9]+.x"
+  push:
     tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
-  matrix:
-    name: Generate job matrix
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.matrix.outputs.matrix }}
-    steps:
-      - name: Gather CI configuration
-        id: matrix
-        uses: laminas/laminas-ci-matrix-action@v1
-
   qa:
-    name: QA Checks
-    needs: [matrix]
-    runs-on: ${{ matrix.operatingSystem }}
-    strategy:
-      fail-fast: false
-      matrix: ${{ fromJSON(needs.matrix.outputs.matrix) }}
-    steps:
-      - name: ${{ matrix.name }}
-        uses: laminas/laminas-continuous-integration-action@v1
-        with:
-          job: ${{ matrix.job }}
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_PASSWORD: 'password'
-          POSTGRES_DB: 'phpdb_test'
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 3
-        ports:
-          - 5432
+    uses: php-db/phpdb-qa-tools/.github/workflows/continuous-integration.yml@0.1.x
+    # CODECOV_TOKEN (org-wide) and INFECTION_DASHBOARD_API_KEY (per-repo) both
+    # come through here, whichever scope actually defines each one.
+    secrets: inherit
+    with:
+      php-versions: '["8.3", "8.4", "8.5"]'
+      run-integration: true
+      # Postgres container for the integration suite; the schema itself is
+      # seeded by the ListenerExtension PHPUnit bootstrap, not this workflow.
+      db-image: "postgres:17-alpine"
+      db-port: "5432"
+      db-env-json: '{"POSTGRES_DB":"phpdb_test","POSTGRES_USER":"postgres","POSTGRES_PASSWORD":"password"}'
+      db-health-cmd: "pg_isready -U postgres -d phpdb_test"
+      # The test/mutation-test jobs run directly on the runner VM (no
+      # container:), so the DB is only reachable via 127.0.0.1 + the mapped
+      # port, not the container name. phpunit.xml.dist defaults this to
+      # "postgres" for local Docker Compose dev (container-to-container); this
+      # overrides it for CI without touching that file.
+      test-env-json: '{"TESTS_PHPDB_PGSQL_HOSTNAME":"127.0.0.1"}'
+      enable-codecov: true
+      enable-infection: true
+      # Canonical leg for coverage + mutation testing (highest supported PHP).
+      coverage-php-version: "8.5"

@@ -20,7 +20,7 @@ use function str_replace;
 
 class AdapterPlatform extends AbstractPlatform
 {
-    public final const PLATFORM_NAME = 'PostgreSQL';
+    final public const PLATFORM_NAME = 'PostgreSQL';
 
     /**
      * Overrides value from AbstractPlatform to use proper escaping for Postgres
@@ -29,8 +29,7 @@ class AdapterPlatform extends AbstractPlatform
 
     public function __construct(
         private readonly DriverInterface|PdoDriverInterface|PDO $driver,
-    ) {
-    }
+    ) {}
 
     /**
      * {@inheritDoc}
@@ -39,6 +38,12 @@ class AdapterPlatform extends AbstractPlatform
     public function getName(): string
     {
         return self::PLATFORM_NAME;
+    }
+
+    #[Override]
+    public function getSqlPlatformDecorator(): PlatformDecoratorInterface
+    {
+        return new SqlPlatformDecorator($this);
     }
 
     /**
@@ -52,17 +57,6 @@ class AdapterPlatform extends AbstractPlatform
 
     /**
      * {@inheritDoc}
-     */
-    #[Override]
-    public function quoteValue($value): string
-    {
-        $quotedViaDriverValue = $this->quoteViaDriver($value);
-
-        return $quotedViaDriverValue ?? 'E' . parent::quoteValue($value);
-    }
-
-    /**
-     * {@inheritDoc}
      *
      * @param scalar $value
      */
@@ -71,11 +65,22 @@ class AdapterPlatform extends AbstractPlatform
     {
         $quotedViaDriverValue = $this->quoteViaDriver($value);
 
-        if ($quotedViaDriverValue === null) {
+        if (null === $quotedViaDriverValue) {
             return 'E' . parent::quoteTrustedValue($value);
         }
 
         return $quotedViaDriverValue;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    #[Override]
+    public function quoteValue($value): string
+    {
+        $quotedViaDriverValue = $this->quoteViaDriver($value);
+
+        return $quotedViaDriverValue ?? 'E' . parent::quoteValue($value);
     }
 
     /**
@@ -97,11 +102,5 @@ class AdapterPlatform extends AbstractPlatform
         }
 
         return null;
-    }
-
-    #[Override]
-    public function getSqlPlatformDecorator(): PlatformDecoratorInterface
-    {
-        return new SqlPlatformDecorator($this);
     }
 }

@@ -50,127 +50,6 @@ class Connection extends AbstractConnection implements DriverAwareInterface
         }
     }
 
-    public function setResource(
-        PgSqlConnection $resource
-    ): ConnectionInterface&DriverAwareInterface {
-        $this->resource = $resource;
-
-        return $this;
-    }
-
-    /** @phpstan-ignore method.childReturnType */
-    #[Override]
-    public function getResource(): ?PgSqlConnection
-    {
-        return $this->resource;
-    }
-
-    #[Override]
-    public function setDriver(
-        DriverInterface|Driver $driver
-    ): ConnectionInterface&DriverAwareInterface {
-        $this->driver = $driver;
-
-        return $this;
-    }
-
-    public function setType(?int $type): ConnectionInterface&DriverAwareInterface
-    {
-        $invalidConectionType = $type !== PGSQL_CONNECT_FORCE_NEW;
-        if ($invalidConectionType) {
-            throw new Exception\InvalidArgumentException(
-                'Connection type is not valid. (See: https://php.net/manual/en/function.pg-connect.php)'
-            );
-        }
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    #[Override]
-    public function getCurrentSchema(): string|false
-    {
-        if (! $this->isConnected()) {
-            $this->connect();
-        }
-
-        $result = pg_query($this->resource, 'SELECT CURRENT_SCHEMA AS "currentschema"');
-        if ($result === false) {
-            return false;
-        }
-
-        return pg_fetch_result($result, 0, 'currentschema');
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @throws Exception\RuntimeException On failure.
-     */
-    #[Override]
-    public function connect(): static
-    {
-        if ($this->resource instanceof PgSqlConnection) {
-            return $this;
-        }
-
-        $connection = $this->getConnectionString();
-        set_error_handler(function ($number, $string) {
-            throw new Exception\RuntimeException(
-                self::class . '::connect: Unable to connect to database',
-                $number,
-                new Exception\ErrorException($string, $number)
-            );
-        });
-        try {
-            $this->resource = pg_connect($connection);
-        } finally {
-            restore_error_handler();
-        }
-
-        if ($this->resource === false) {
-            throw new Exception\RuntimeException(sprintf(
-                '%s: Unable to connect to database',
-                __METHOD__
-            ));
-        }
-
-        if (! empty($this->connectionParameters['charset'])) {
-            if (pg_set_client_encoding($this->resource, $this->connectionParameters['charset']) === -1) {
-                throw new Exception\RuntimeException(sprintf(
-                    "%s: Unable to set client encoding '%s'",
-                    __METHOD__,
-                    $this->connectionParameters['charset']
-                ));
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    #[Override]
-    public function isConnected(): bool
-    {
-        return $this->resource instanceof PgSqlConnection;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    #[Override]
-    public function disconnect(): static
-    {
-        pg_close($this->resource);
-        $this->resource = null;
-        return $this;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -213,21 +92,58 @@ class Connection extends AbstractConnection implements DriverAwareInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @throws Exception\RuntimeException On failure.
      */
     #[Override]
-    public function rollback(): static
+    public function connect(): static
     {
-        if (! $this->isConnected()) {
-            throw new Exception\RuntimeException('Must be connected before you can rollback');
+        if ($this->resource instanceof PgSqlConnection) {
+            return $this;
         }
 
-        if (! $this->inTransaction()) {
-            throw new Exception\RuntimeException('Must call beginTransaction() before you can rollback');
+        $connection = $this->getConnectionString();
+        set_error_handler(static function ($number, $string) {
+            throw new Exception\RuntimeException(
+                self::class . '::connect: Unable to connect to database',
+                $number,
+                new Exception\ErrorException($string, $number),
+            );
+        });
+        try {
+            $this->resource = pg_connect($connection);
+        } finally {
+            restore_error_handler();
         }
 
-        pg_query($this->resource, 'ROLLBACK');
-        $this->inTransaction = false;
+        if (false === $this->resource) {
+            throw new Exception\RuntimeException(sprintf(
+                '%s: Unable to connect to database',
+                __METHOD__,
+            ));
+        }
 
+        if (! empty($this->connectionParameters['charset'])) {
+            if (pg_set_client_encoding($this->resource, $this->connectionParameters['charset']) === -1) {
+                throw new Exception\RuntimeException(sprintf(
+                    "%s: Unable to set client encoding '%s'",
+                    __METHOD__,
+                    $this->connectionParameters['charset'],
+                ));
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    #[Override]
+    public function disconnect(): static
+    {
+        pg_close($this->resource);
+        $this->resource = null;
         return $this;
     }
 
@@ -250,7 +166,7 @@ class Connection extends AbstractConnection implements DriverAwareInterface
         $this->profiler?->profilerFinish();
 
         // if the returnValue is something other than a pg result resource, bypass wrapping it
-        if ($resultResource === false) {
+        if (false === $resultResource) {
             throw new Exception\InvalidQueryException(pg_last_error($this->resource));
         }
 
@@ -262,17 +178,101 @@ class Connection extends AbstractConnection implements DriverAwareInterface
      * {@inheritDoc}
      */
     #[Override]
+    public function getCurrentSchema(): string|false
+    {
+        if (! $this->isConnected()) {
+            $this->connect();
+        }
+
+        $result = pg_query($this->resource, 'SELECT CURRENT_SCHEMA AS "currentschema"');
+        if (false === $result) {
+            return false;
+        }
+
+        return pg_fetch_result($result, 0, 'currentschema');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    #[Override]
     public function getLastGeneratedValue(?string $name = null): string|int|false|null
     {
-        if ($name === null) {
+        if (null === $name) {
             return null;
         }
         $result = pg_query(
             $this->resource,
-            'SELECT CURRVAL(\'' . str_replace('\'', '\\\'', $name) . '\') as "currval"'
+            'SELECT CURRVAL(\'' . str_replace('\'', '\\\'', $name) . '\') as "currval"',
         );
 
         return pg_fetch_result($result, 0, 'currval');
+    }
+
+    /** @phpstan-ignore method.childReturnType */
+    #[Override]
+    public function getResource(): ?PgSqlConnection
+    {
+        return $this->resource;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    #[Override]
+    public function isConnected(): bool
+    {
+        return $this->resource instanceof PgSqlConnection;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    #[Override]
+    public function rollback(): static
+    {
+        if (! $this->isConnected()) {
+            throw new Exception\RuntimeException('Must be connected before you can rollback');
+        }
+
+        if (! $this->inTransaction()) {
+            throw new Exception\RuntimeException('Must call beginTransaction() before you can rollback');
+        }
+
+        pg_query($this->resource, 'ROLLBACK');
+        $this->inTransaction = false;
+
+        return $this;
+    }
+
+    #[Override]
+    public function setDriver(
+        DriverInterface|Driver $driver,
+    ): ConnectionInterface&DriverAwareInterface {
+        $this->driver = $driver;
+
+        return $this;
+    }
+
+    public function setResource(
+        PgSqlConnection $resource,
+    ): ConnectionInterface&DriverAwareInterface {
+        $this->resource = $resource;
+
+        return $this;
+    }
+
+    public function setType(?int $type): ConnectionInterface&DriverAwareInterface
+    {
+        $invalidConectionType = PGSQL_CONNECT_FORCE_NEW !== $type;
+        if ($invalidConectionType) {
+            throw new Exception\InvalidArgumentException(
+                'Connection type is not valid. (See: https://php.net/manual/en/function.pg-connect.php)',
+            );
+        }
+        $this->type = $type;
+
+        return $this;
     }
 
     /**
@@ -291,10 +291,10 @@ class Connection extends AbstractConnection implements DriverAwareInterface
                 'port'                               => 'port',
                 'socket'                             => 'socket',
                 default                              => throw new Exception\InvalidArgumentException(
-                    'Connection parameter "' . $name . '" is not valid for Pgsql adapter'
+                    'Connection parameter "' . $name . '" is not valid for Pgsql adapter',
                 ),
             };
-            if ($name === 'port' && $value !== null) {
+            if ('port' === $name && null !== $value) {
                 $value = (int) $value;
             }
             $conn[$name] = $value;
@@ -304,8 +304,8 @@ class Connection extends AbstractConnection implements DriverAwareInterface
             http_build_query(
                 array_filter($conn),
                 '',
-                ' '
-            )
+                ' ',
+            ),
         );
     }
 }

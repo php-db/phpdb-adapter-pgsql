@@ -10,10 +10,11 @@ use PhpDb\Adapter\Driver\ConnectionInterface;
 use PhpDb\Adapter\SchemaAwareInterface;
 use PhpDbTestAsset\Pgsql\SetupTrait;
 use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 #[CoversMethod(Adapter::class, 'getCurrentSchema')]
-#[CoversMethod(AdapterInterface::class, '__construct')]
+#[CoversMethod(Adapter::class, '__construct')]
 #[CoversMethod(SchemaAwareInterface::class, 'getCurrentSchema')]
 #[CoversMethod(ConnectionInterface::class, 'connect')]
 #[CoversMethod(ConnectionInterface::class, 'disconnect')]
@@ -22,23 +23,16 @@ class AdapterTest extends TestCase
 {
     use SetupTrait;
 
-    public function testConnection(): void
+    #[Test]
+    public function connection(): void
     {
         /** @var ConnectionInterface $connection */
         $connection = $this->getAdapter()->getDriver()->getConnection();
-        $this->assertInstanceOf(ConnectionInterface::class, $connection);
+        static::assertInstanceOf(ConnectionInterface::class, $connection);
     }
 
-    public function testGetCurrentSchema(): void
-    {
-        /** @var AdapterInterface&SchemaAwareInterface&Adapter $adapter */
-        $adapter = $this->getAdapter();
-        $schema  = $adapter->getCurrentSchema();
-        self::assertIsString($schema);
-        self::assertNotEmpty($schema);
-    }
-
-    public function testDriverDisconnectAfterQuoteWithPlatform(): void
+    #[Test]
+    public function driverDisconnectAfterQuoteWithPlatform(): void
     {
         $isTcpConnection = $this->isTcpConnection();
 
@@ -47,37 +41,47 @@ class AdapterTest extends TestCase
         /** @var ConnectionInterface $connection */
         $connection = $adapter->getDriver()->getConnection();
         $connection->connect();
-        self::assertTrue($connection->isConnected());
+        static::assertTrue($connection->isConnected());
         if ($isTcpConnection) {
-            self::assertTrue($connection->isConnected());
+            static::assertTrue($connection->isConnected());
         }
 
         // todo: why is this not disconnecting
         $connection->disconnect();
-        self::assertFalse($connection->isConnected());
+        static::assertFalse($connection->isConnected());
         if ($isTcpConnection) {
-            self::assertFalse($connection->isConnected());
+            static::assertFalse($connection->isConnected());
         }
 
         $connection->connect();
-        self::assertTrue($connection->isConnected());
+        static::assertTrue($connection->isConnected());
         if ($isTcpConnection) {
-            self::assertTrue($connection->isConnected());
+            static::assertTrue($connection->isConnected());
         }
 
         $adapter->getPlatform()->quoteValue('test');
 
         $connection->disconnect();
 
-        self::assertFalse($connection->isConnected());
+        static::assertFalse($connection->isConnected());
         if ($isTcpConnection) {
-            self::assertFalse($connection->isConnected());
+            static::assertFalse($connection->isConnected());
         }
+    }
+
+    #[Test]
+    public function getCurrentSchema(): void
+    {
+        /** @var AdapterInterface&SchemaAwareInterface&Adapter $adapter */
+        $adapter = $this->getAdapter();
+        $schema  = $adapter->getCurrentSchema();
+        static::assertIsString($schema);
+        static::assertNotEmpty($schema);
     }
 
     protected function isTcpConnection(): bool
     {
         $hostName = $this->getHostname();
-        return $hostName !== 'localhost' && $hostName !== '127.0.0.1';
+        return 'localhost' !== $hostName && '127.0.0.1' !== $hostName;
     }
 }

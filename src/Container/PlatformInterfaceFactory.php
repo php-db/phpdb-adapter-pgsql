@@ -17,7 +17,7 @@ final class PlatformInterfaceFactory
     public function __invoke(
         ContainerInterface $container,
         string $requestedName,
-        ?array $options = null
+        ?array $options = null,
     ): PlatformInterface&Pgsql\AdapterPlatform {
         $driver = $options['driver'] ?? null;
         if (
@@ -28,7 +28,7 @@ final class PlatformInterfaceFactory
             throw ContainerException::forService(
                 PlatformInterface::class,
                 self::class,
-                'Invalid or missing driver provided'
+                'Invalid or missing driver provided',
             );
         }
         return new Pgsql\AdapterPlatform($driver);

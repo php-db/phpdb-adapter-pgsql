@@ -20,22 +20,11 @@ use function getenv;
 
 trait SetupTrait
 {
-    public final const NATIVE_ADAPTER = 'Pgsql\Adapter';
-    public final const PDO_ADAPTER    = 'Pgsql\Pdo\Adapter';
-    protected array $conn             = [];
+    final public const NATIVE_ADAPTER = 'Pgsql\Adapter';
+    final public const PDO_ADAPTER    = 'Pgsql\Pdo\Adapter';
+
+    protected array $conn = [];
     protected ServiceManager $serviceManager;
-    protected function setUp(): void
-    {
-        $conn       = [
-            'host'     => (string) getenv('TESTS_PHPDB_PGSQL_HOSTNAME'),
-            'port'     => 5432,
-            'username' => (string) getenv('TESTS_PHPDB_PGSQL_USERNAME'),
-            'password' => (string) getenv('TESTS_PHPDB_PGSQL_PASSWORD'),
-            'database' => (string) getenv('TESTS_PHPDB_PGSQL_DATABASE'),
-        ];
-        $this->conn = $conn;
-        parent::setUp();
-    }
 
     public function getAdapter(string $adapter = self::NATIVE_ADAPTER): AdapterInterface
     {
@@ -46,35 +35,19 @@ trait SetupTrait
                 'services' => [
                     'config' => $this->getTestConfig(),
                 ],
-            ]
+            ],
         );
         $serviceManagerConfig = ArrayUtils::merge(
             $serviceManagerConfig,
-            (new PhpDbConfigProvider())()['dependencies']
+            (new PhpDbConfigProvider())()['dependencies'],
         );
         $this->serviceManager = new ServiceManager($serviceManagerConfig);
         return $this->serviceManager->get($adapter);
     }
 
-    public function getTestConfig(): array
+    public function getHostname(): string
     {
-        return [
-            AdapterInterface::class => [
-                'driver'     => Pgsql\Driver::class,
-                'connection' => $this->conn,
-                // Named Adapter configurations
-                PhpDbConfigProvider::NAMED_ADAPTER_KEY => [
-                    self::NATIVE_ADAPTER => [
-                        'driver'     => Pgsql\Driver::class,
-                        'connection' => $this->conn,
-                    ],
-                    self::PDO_ADAPTER    => [
-                        'driver'     => Pgsql\Pdo\Driver::class,
-                        'connection' => $this->conn,
-                    ],
-                ],
-            ],
-        ];
+        return $this->conn['host'];
     }
 
     public function getMockedAdapter(string $adapter = self::NATIVE_ADAPTER): AdapterInterface
@@ -129,12 +102,8 @@ trait SetupTrait
                     PlatformInterface::class      => Pgsql\AdapterPlatform::class,
                 ],
                 'factories' => [
-                    Pgsql\Driver::class     => function (ContainerInterface $container) use ($driverMock) {
-                        return $driverMock;
-                    },
-                    Pgsql\Pdo\Driver::class => function (ContainerInterface $container) use ($pdoDriverMock) {
-                        return $pdoDriverMock;
-                    },
+                    Pgsql\Driver::class     => static fn(ContainerInterface $container) => $driverMock,
+                    Pgsql\Pdo\Driver::class => static fn(ContainerInterface $container) => $pdoDriverMock,
                 ],
             ],
         ];
@@ -147,15 +116,44 @@ trait SetupTrait
                 'services' => [
                     'config' => $config,
                 ],
-            ]
+            ],
         );
 
         $this->serviceManager = new ServiceManager($serviceManagerConfig);
         return $this->serviceManager->get($adapter);
     }
 
-    public function getHostname(): string
+    public function getTestConfig(): array
     {
-        return $this->conn['host'];
+        return [
+            AdapterInterface::class => [
+                'driver'     => Pgsql\Driver::class,
+                'connection' => $this->conn,
+                // Named Adapter configurations
+                PhpDbConfigProvider::NAMED_ADAPTER_KEY => [
+                    self::NATIVE_ADAPTER => [
+                        'driver'     => Pgsql\Driver::class,
+                        'connection' => $this->conn,
+                    ],
+                    self::PDO_ADAPTER    => [
+                        'driver'     => Pgsql\Pdo\Driver::class,
+                        'connection' => $this->conn,
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    protected function setUp(): void
+    {
+        $conn = [
+            'host'     => (string) getenv('TESTS_PHPDB_PGSQL_HOSTNAME'),
+            'port'     => 5432,
+            'username' => (string) getenv('TESTS_PHPDB_PGSQL_USERNAME'),
+            'password' => (string) getenv('TESTS_PHPDB_PGSQL_PASSWORD'),
+            'database' => (string) getenv('TESTS_PHPDB_PGSQL_DATABASE'),
+        ];
+        $this->conn = $conn;
+        parent::setUp();
     }
 }

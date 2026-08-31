@@ -14,19 +14,20 @@ use PhpDb\Pgsql\Result;
  */
 final class ResultStub extends Result
 {
-    public function __construct(private bool $isQueryResult, private int $fieldCount = 0)
+    public function __construct(
+        private bool $isQueryResult,
+        private int $fieldCount = 0,
+    ) {}
+
+    #[Override]
+    public function getFieldCount(): int
     {
+        return $this->fieldCount;
     }
 
     #[Override]
     public function isQueryResult(): bool
     {
         return $this->isQueryResult;
-    }
-
-    #[Override]
-    public function getFieldCount(): int
-    {
-        return $this->fieldCount;
     }
 }

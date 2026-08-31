@@ -1,0 +1,883 @@
+variant = "loose"
+
+[[issues]]
+file = "src/AdapterPlatform.php"
+code = "class-must-be-final"
+message = 'Class `PhpDb\Pgsql\AdapterPlatform` should be declared `final`.'
+count = 1
+
+[[issues]]
+file = "src/AdapterPlatform.php"
+code = "docblock-type-mismatch"
+message = "Docblock type mismatch for variable `$resource`."
+count = 1
+
+[[issues]]
+file = "src/AdapterPlatform.php"
+code = "impossible-condition"
+message = "This condition (type `false`) will always evaluate to false."
+count = 1
+
+[[issues]]
+file = "src/AdapterPlatform.php"
+code = "impossible-type-comparison"
+message = "Impossible condition: variable `$resource` (type `string`) can never be `open-resource`."
+count = 1
+
+[[issues]]
+file = "src/AdapterPlatform.php"
+code = "impossible-type-comparison"
+message = "Impossible type assertion: `$resource` of type `string` can never be `open-resource`."
+count = 1
+
+[[issues]]
+file = "src/AdapterPlatform.php"
+code = "missing-constant-type"
+message = "Class constant `PLATFORM_NAME` is missing a type hint."
+count = 1
+
+[[issues]]
+file = "src/AdapterPlatform.php"
+code = "missing-parameter-type"
+message = "Parameter `$value` is missing a type hint."
+count = 1
+
+[[issues]]
+file = "src/AdapterPlatform.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `PhpDb\Pgsql\AdapterPlatform::quoteViaDriver`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/AdapterPlatform.php"
+code = "possibly-invalid-argument"
+message = 'Possible argument type mismatch for argument #1 of `PhpDb\Pgsql\AdapterPlatform::quoteViaDriver`: expected `string`, but possibly received `scalar`.'
+count = 1
+
+[[issues]]
+file = "src/AdapterPlatform.php"
+code = "possibly-null-operand"
+message = "Possibly null right operand used in string concatenation (type `null|string`)."
+count = 1
+
+[[issues]]
+file = "src/AdapterPlatform.php"
+code = "redundant-logical-operation"
+message = "Redundant `||` operation: left operand is evaluated and right operand is always falsy."
+count = 1
+
+[[issues]]
+file = "src/ConfigProvider.php"
+code = "imprecise-type"
+message = "Type `array` in return type of `__invoke` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/ConfigProvider.php"
+code = "imprecise-type"
+message = "Type `array` in return type of `getConfig` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/ConfigProvider.php"
+code = "imprecise-type"
+message = "Type `array` in return type of `getDependencies` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "class-must-be-final"
+message = 'Class `PhpDb\Pgsql\Connection` should be declared `final`.'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "docblock-type-mismatch"
+message = 'Docblock return type `null|resource` is incompatible with native return type `PgSql\Connection|null`.'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "impossible-condition"
+message = "This condition (type `false`) will always evaluate to false."
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "imprecise-type"
+message = "Type `array` in parameter `$connectionInfo` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "incompatible-property-type"
+message = 'Property `PhpDb\Pgsql\Connection::$resource` has an incompatible type declaration from docblock.'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `PhpDb\Adapter\Driver\DriverInterface::createResult`: expected `resource`, but found `PgSql\Result`.'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "invalid-property-assignment-value"
+message = 'Invalid type for property `$resource`: expected `PgSql\Connection|null`, but got `PgSql\Connection|false`.'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "invalid-return-statement"
+message = 'Invalid return type for function `PhpDb\Pgsql\Connection::getCurrentSchema`: expected `false|string`, but found `false|null|string`.'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "invalid-return-statement"
+message = 'Invalid return type for function `PhpDb\Pgsql\Connection::getResource`: expected `null|resource`, but found `PgSql\Connection|null`.'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "less-specific-argument"
+message = "Argument type mismatch for argument #1 of `strtolower`: expected `string`, but provided type `array-key` is less specific."
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #1 of `Exception::__construct`: expected `string`, but found `mixed`."
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #2 of `Exception::__construct`: expected `int`, but found `mixed`."
+count = 2
+
+[[issues]]
+file = "src/Connection.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #2 of `pg_set_client_encoding`: expected `string`, but found `truthy-mixed`."
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #3 of `sprintf`: expected `Stringable|null|scalar`, but found `truthy-mixed`."
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "nullable-return-statement"
+message = 'Function `PhpDb\Pgsql\Connection::getCurrentSchema` is declared to return `false|string` but possibly returns a nullable value (inferred as `false|null|string`).'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "possibly-false-argument"
+message = 'Argument #1 of function `pg_fetch_result` is possibly `false`, but parameter type `PgSql\Result` does not accept it.'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of function `pg_query` is possibly `null`, but parameter type `PgSql\Connection|string` does not accept it.'
+count = 6
+
+[[issues]]
+file = "src/Connection.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of function `pg_set_client_encoding` is possibly `null`, but parameter type `PgSql\Connection|string` does not accept it.'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "redundant-comparison"
+message = "Redundant `===` comparison: left-hand side is never identical to right-hand side."
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PhpDb\Adapter\Exception\RuntimeException` in `PhpDb\Pgsql\Connection::beginTransaction`.'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PhpDb\Adapter\Exception\RuntimeException` in `PhpDb\Pgsql\Connection::commit`.'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PhpDb\Adapter\Exception\RuntimeException` in `PhpDb\Pgsql\Connection::execute`.'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PhpDb\Adapter\Exception\RuntimeException` in `PhpDb\Pgsql\Connection::getCurrentSchema`.'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PhpDb\Adapter\Exception\RuntimeException` in `PhpDb\Pgsql\Connection::rollback`.'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PhpDb\Adapter\Exception\RuntimeException` in `{closure:src/Connection.php:106:27}`.'
+count = 1
+
+[[issues]]
+file = "src/Connection.php"
+code = "uninitialized-property"
+message = 'Property `$driver` is not initialized in the constructor of class `PhpDb\Pgsql\Connection`.'
+count = 1
+
+[[issues]]
+file = "src/Container/ConnectionInterfaceFactory.php"
+code = "imprecise-type"
+message = "Type `array` in parameter `$options` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Container/ConnectionInterfaceFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #2 of `PhpDb\Adapter\Exception\InvalidConnectionParametersException::__construct`: expected `array<array-key, mixed>`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Container/ConnectionInterfaceFactory.php"
+code = "non-existent-use-import"
+message = 'Imported class, interface, trait, or enum `PhpDb\Adapter\Pgsql\Exception\ContainerException` does not exist.'
+count = 1
+
+[[issues]]
+file = "src/Container/ConnectionInterfaceFactory.php"
+code = "possibly-null-array-access"
+message = "Cannot perform array access on possibly `null` value."
+count = 1
+
+[[issues]]
+file = "src/Container/ConnectionInterfaceFactory.php"
+code = "possibly-undefined-string-array-index"
+message = "Possibly undefined array key `string('connection')` accessed on `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Container/ConnectionInterfaceFactory.php"
+code = "unused-parameter"
+message = "Parameter `$container` is never used."
+count = 1
+
+[[issues]]
+file = "src/Container/ConnectionInterfaceFactory.php"
+code = "unused-parameter"
+message = "Parameter `$requestedName` is never used."
+count = 1
+
+[[issues]]
+file = "src/Container/DriverInterfaceFactory.php"
+code = "imprecise-type"
+message = "Type `array` in parameter `$options` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Container/DriverInterfaceFactory.php"
+code = "possibly-null-array-access"
+message = "Cannot perform array access on possibly `null` value."
+count = 1
+
+[[issues]]
+file = "src/Container/DriverInterfaceFactory.php"
+code = "possibly-undefined-string-array-index"
+message = "Possibly undefined array key `string('connection')` accessed on `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Container/DriverInterfaceFactory.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Laminas\ServiceManager\Exception\ServiceNotCreatedException` in `PhpDb\Pgsql\Container\DriverInterfaceFactory::__invoke`.'
+count = 1
+
+[[issues]]
+file = "src/Container/DriverInterfaceFactory.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PhpDb\Exception\ContainerException` in `PhpDb\Pgsql\Container\DriverInterfaceFactory::__invoke`.'
+count = 1
+
+[[issues]]
+file = "src/Container/DriverInterfaceFactory.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Psr\Container\ContainerExceptionInterface` in `PhpDb\Pgsql\Container\DriverInterfaceFactory::__invoke`.'
+count = 1
+
+[[issues]]
+file = "src/Container/DriverInterfaceFactory.php"
+code = "unused-parameter"
+message = "Parameter `$requestedName` is never used."
+count = 1
+
+[[issues]]
+file = "src/Container/PdoConnectionInterfaceFactory.php"
+code = "imprecise-type"
+message = "Type `array` in parameter `$options` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Container/PdoConnectionInterfaceFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #2 of `PhpDb\Adapter\Exception\InvalidConnectionParametersException::__construct`: expected `array<array-key, mixed>`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Container/PdoConnectionInterfaceFactory.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 2
+
+[[issues]]
+file = "src/Container/PdoConnectionInterfaceFactory.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Psr\Container\ContainerExceptionInterface` in `PhpDb\Pgsql\Container\PdoConnectionInterfaceFactory::__invoke`.'
+count = 1
+
+[[issues]]
+file = "src/Container/PdoConnectionInterfaceFactory.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Psr\Container\NotFoundExceptionInterface` in `PhpDb\Pgsql\Container\PdoConnectionInterfaceFactory::__invoke`.'
+count = 1
+
+[[issues]]
+file = "src/Container/PdoDriverInterfaceFactory.php"
+code = "imprecise-type"
+message = "Type `array` in parameter `$options` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Container/PdoDriverInterfaceFactory.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 2
+
+[[issues]]
+file = "src/Container/PdoDriverInterfaceFactory.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Laminas\ServiceManager\Exception\ServiceNotCreatedException` in `PhpDb\Pgsql\Container\PdoDriverInterfaceFactory::__invoke`.'
+count = 1
+
+[[issues]]
+file = "src/Container/PdoDriverInterfaceFactory.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PhpDb\Exception\ContainerException` in `PhpDb\Pgsql\Container\PdoDriverInterfaceFactory::__invoke`.'
+count = 1
+
+[[issues]]
+file = "src/Container/PdoDriverInterfaceFactory.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Psr\Container\ContainerExceptionInterface` in `PhpDb\Pgsql\Container\PdoDriverInterfaceFactory::__invoke`.'
+count = 1
+
+[[issues]]
+file = "src/Container/PdoDriverInterfaceFactory.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `Psr\Container\NotFoundExceptionInterface` in `PhpDb\Pgsql\Container\PdoDriverInterfaceFactory::__invoke`.'
+count = 1
+
+[[issues]]
+file = "src/Container/PdoStatementFactory.php"
+code = "imprecise-type"
+message = "Type `array` in parameter `$options` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Container/PdoStatementFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #2 of `PhpDb\Adapter\Driver\Pdo\Statement::__construct`: expected `array<array-key, mixed>`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Container/PdoStatementFactory.php"
+code = "mixed-assignment"
+message = "Assigning `nonnull` type to a variable may lead to unexpected behavior."
+count = 1
+
+[[issues]]
+file = "src/Container/PdoStatementFactory.php"
+code = "unused-parameter"
+message = "Parameter `$container` is never used."
+count = 1
+
+[[issues]]
+file = "src/Container/PdoStatementFactory.php"
+code = "unused-parameter"
+message = "Parameter `$requestedName` is never used."
+count = 1
+
+[[issues]]
+file = "src/Container/PlatformInterfaceFactory.php"
+code = "imprecise-type"
+message = "Type `array` in parameter `$options` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Container/PlatformInterfaceFactory.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 1
+
+[[issues]]
+file = "src/Container/PlatformInterfaceFactory.php"
+code = "unused-parameter"
+message = "Parameter `$container` is never used."
+count = 1
+
+[[issues]]
+file = "src/Container/PlatformInterfaceFactory.php"
+code = "unused-parameter"
+message = "Parameter `$requestedName` is never used."
+count = 1
+
+[[issues]]
+file = "src/Container/StatementInterfaceFactory.php"
+code = "imprecise-type"
+message = "Type `array` in parameter `$options` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Container/StatementInterfaceFactory.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #1 of `PhpDb\Pgsql\Statement::__construct`: expected `array<array-key, mixed>|bool`, but found `nonnull`.'
+count = 1
+
+[[issues]]
+file = "src/Container/StatementInterfaceFactory.php"
+code = "unused-parameter"
+message = "Parameter `$container` is never used."
+count = 1
+
+[[issues]]
+file = "src/Container/StatementInterfaceFactory.php"
+code = "unused-parameter"
+message = "Parameter `$requestedName` is never used."
+count = 1
+
+[[issues]]
+file = "src/Driver.php"
+code = "imprecise-type"
+message = "Type `array` in parameter `$options` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Driver.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `PhpDb\Pgsql\Statement::initialize`: expected `PgSql\Connection`, but found `null|resource`.'
+count = 1
+
+[[issues]]
+file = "src/Driver.php"
+code = "missing-property-type"
+message = "Property `$options` is missing a type hint."
+count = 1
+
+[[issues]]
+file = "src/Driver.php"
+code = "possibly-false-argument"
+message = 'Argument #2 of method `PhpDb\Pgsql\Result::initialize` is possibly `false`, but parameter type `int|null|string` does not accept it.'
+count = 1
+
+[[issues]]
+file = "src/Driver.php"
+code = "possibly-invalid-argument"
+message = 'Possible argument type mismatch for argument #1 of `PhpDb\Pgsql\Result::initialize`: expected `PgSql\Result`, but possibly received `PgSql\Result|resource`.'
+count = 1
+
+[[issues]]
+file = "src/Driver.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `PhpDb\Pgsql\Statement::initialize` is possibly `null`, but parameter type `PgSql\Connection` does not accept it.'
+count = 1
+
+[[issues]]
+file = "src/Driver.php"
+code = "redundant-condition"
+message = "This condition (type `true`) will always evaluate to true."
+count = 2
+
+[[issues]]
+file = "src/Driver.php"
+code = "redundant-docblock-type"
+message = "Redundant docblock type for variable `$result`."
+count = 1
+
+[[issues]]
+file = "src/Driver.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PhpDb\Adapter\Exception\RuntimeException` in `PhpDb\Pgsql\Driver::createStatement`.'
+count = 1
+
+[[issues]]
+file = "src/Driver.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PhpDb\Exception\RuntimeException` in `PhpDb\Pgsql\Driver::__construct`.'
+count = 1
+
+[[issues]]
+file = "src/Metadata/Source.php"
+code = "class-must-be-final"
+message = 'Class `PhpDb\Pgsql\Metadata\Source` should be declared `final`.'
+count = 1
+
+[[issues]]
+file = "src/Metadata/Source.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #1 of `DateTime::__construct`: expected `string`, but found `nonnull`."
+count = 1
+
+[[issues]]
+file = "src/Metadata/Source.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #1 of `array_change_key_case`: expected `array<string, ('V.array_change_key_case() extends mixed)>`, but found `mixed`."
+count = 1
+
+[[issues]]
+file = "src/Metadata/Source.php"
+code = "mixed-array-access"
+message = "Unsafe array access on type `mixed`."
+count = 23
+
+[[issues]]
+file = "src/Metadata/Source.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 6
+
+[[issues]]
+file = "src/Metadata/Source.php"
+code = "mixed-property-type-coercion"
+message = "A value with a less specific type `array{'columns'?: array<string, array<string, array<string, array{'character_maximum_length': int|null|string, 'character_octet_length': int|null|string, 'column_default': bool|int|null|string, 'data_type': string, 'erratas': array<string, mixed>, 'is_nullable': bool|null, 'numeric_precision': int|null|string, 'numeric_scale': int|null|string, 'numeric_unsigned': bool|null, 'ordinal_position': int|null|string}>>>, 'constraint_keys'?: array<string, list<array{'column_name': string, 'constraint_name': string, 'ordinal_position': int, 'table_name': string}>>, 'constraint_references'?: array<string, list<array{'constraint_name': string, 'delete_rule': string, 'referenced_column_name': string, 'referenced_table_name': string, 'update_rule': string}>>, 'constraints'?: array<string, array<string, array<string, array{'check_clause'?: string, 'columns'?: list<string>, 'constraint_type'?: string, 'delete_rule'?: string, 'match_option'?: string, 'referenced_columns'?: list<string>, 'referenced_table_name'?: string, 'referenced_table_schema'?: string, 'update_rule'?: string}>>>, 'schemas': array{}|non-empty-list<mixed>, 'table_names'?: array<string, array<string, array{'check_option'?: null|string, 'is_updatable'?: bool|null, 'table_type': string, 'view_definition'?: null|string}>>, 'triggers'?: array<string, array<string, array{'action_condition': null|string, 'action_order': string, 'action_orientation': string, 'action_reference_new_row': string, 'action_reference_new_table': null|string, 'action_reference_old_row': string, 'action_reference_old_table': null|string, 'action_statement': string, 'action_timing': string, 'created': DateTime|null, 'event_manipulation': string, 'event_object_catalog': string, 'event_object_schema': string, 'event_object_table': string}>>}` is being assigned to property `$data` (array{'columns'?: array<string, array<string, array<string, array{'character_maximum_length': int|null|string, 'character_octet_length': int|null|string, 'column_default': bool|int|null|string, 'data_type': string, 'erratas': array<string, mixed>, 'is_nullable': bool|null, 'numeric_precision': int|null|string, 'numeric_scale': int|null|string, 'numeric_unsigned': bool|null, 'ordinal_position': int|null|string}>>>, 'constraint_keys'?: array<string, list<array{'column_name': string, 'constraint_name': string, 'ordinal_position': int, 'table_name': string}>>, 'constraint_references'?: array<string, list<array{'constraint_name': string, 'delete_rule': string, 'referenced_column_name': string, 'referenced_table_name': string, 'update_rule': string}>>, 'constraints'?: array<string, array<string, array<string, array{'check_clause'?: string, 'columns'?: list<string>, 'constraint_type'?: string, 'delete_rule'?: string, 'match_option'?: string, 'referenced_columns'?: list<string>, 'referenced_table_name'?: string, 'referenced_table_schema'?: string, 'update_rule'?: string}>>>, 'schemas'?: list<string>, 'table_names'?: array<string, array<string, array{'check_option'?: null|string, 'is_updatable'?: bool|null, 'table_type': string, 'view_definition'?: null|string}>>, 'triggers'?: array<string, array<string, array{'action_condition': null|string, 'action_order': string, 'action_orientation': string, 'action_reference_new_row': string, 'action_reference_new_table': null|string, 'action_reference_old_row': string, 'action_reference_old_table': null|string, 'action_statement': string, 'action_timing': string, 'created': DateTime|null, 'event_manipulation': string, 'event_object_catalog': string, 'event_object_schema': string, 'event_object_table': string}>>})."
+count = 1
+
+[[issues]]
+file = "src/Metadata/Source.php"
+code = "possibly-invalid-argument"
+message = "Possible argument type mismatch for argument #2 of `implode`: expected `array<array-key, Stringable|null|scalar>|null`, but possibly received `non-empty-list<void>`."
+count = 4
+
+[[issues]]
+file = "src/Metadata/Source.php"
+code = "possibly-null-operand"
+message = "Possibly null middle operand used in string concatenation (type `null|string`)."
+count = 1
+
+[[issues]]
+file = "src/Metadata/Source.php"
+code = "possibly-null-operand"
+message = "Possibly null right operand used in string concatenation (type `null|string`)."
+count = 1
+
+[[issues]]
+file = "src/Metadata/Source.php"
+code = "property-type-coercion"
+message = "A value of a less specific type `array{'columns': non-empty-array<string, array<string, array<array-key, array{'character_maximum_length': mixed, 'character_octet_length': mixed, 'column_default': mixed, 'data_type': mixed, 'erratas': array<string, mixed>, 'is_nullable': bool|null, 'numeric_precision': mixed, 'numeric_scale': mixed, 'numeric_unsigned': bool|null, 'ordinal_position': mixed}>>>, 'constraint_keys'?: array<string, list<array{'column_name': string, 'constraint_name': string, 'ordinal_position': int, 'table_name': string}>>, 'constraint_references'?: array<string, list<array{'constraint_name': string, 'delete_rule': string, 'referenced_column_name': string, 'referenced_table_name': string, 'update_rule': string}>>, 'constraints'?: array<string, array<string, array<string, array{'check_clause'?: string, 'columns'?: list<string>, 'constraint_type'?: string, 'delete_rule'?: string, 'match_option'?: string, 'referenced_columns'?: list<string>, 'referenced_table_name'?: string, 'referenced_table_schema'?: string, 'update_rule'?: string}>>>, 'schemas'?: list<string>, 'table_names'?: array<string, array<string, array{'check_option'?: null|string, 'is_updatable'?: bool|null, 'table_type': string, 'view_definition'?: null|string}>>, 'triggers'?: array<string, array<string, array{'action_condition': null|string, 'action_order': string, 'action_orientation': string, 'action_reference_new_row': string, 'action_reference_new_table': null|string, 'action_reference_old_row': string, 'action_reference_old_table': null|string, 'action_statement': string, 'action_timing': string, 'created': DateTime|null, 'event_manipulation': string, 'event_object_catalog': string, 'event_object_schema': string, 'event_object_table': string}>>}` is being assigned to property `$data` (array{'columns'?: array<string, array<string, array<string, array{'character_maximum_length': int|null|string, 'character_octet_length': int|null|string, 'column_default': bool|int|null|string, 'data_type': string, 'erratas': array<string, mixed>, 'is_nullable': bool|null, 'numeric_precision': int|null|string, 'numeric_scale': int|null|string, 'numeric_unsigned': bool|null, 'ordinal_position': int|null|string}>>>, 'constraint_keys'?: array<string, list<array{'column_name': string, 'constraint_name': string, 'ordinal_position': int, 'table_name': string}>>, 'constraint_references'?: array<string, list<array{'constraint_name': string, 'delete_rule': string, 'referenced_column_name': string, 'referenced_table_name': string, 'update_rule': string}>>, 'constraints'?: array<string, array<string, array<string, array{'check_clause'?: string, 'columns'?: list<string>, 'constraint_type'?: string, 'delete_rule'?: string, 'match_option'?: string, 'referenced_columns'?: list<string>, 'referenced_table_name'?: string, 'referenced_table_schema'?: string, 'update_rule'?: string}>>>, 'schemas'?: list<string>, 'table_names'?: array<string, array<string, array{'check_option'?: null|string, 'is_updatable'?: bool|null, 'table_type': string, 'view_definition'?: null|string}>>, 'triggers'?: array<string, array<string, array{'action_condition': null|string, 'action_order': string, 'action_orientation': string, 'action_reference_new_row': string, 'action_reference_new_table': null|string, 'action_reference_old_row': string, 'action_reference_old_table': null|string, 'action_statement': string, 'action_timing': string, 'created': DateTime|null, 'event_manipulation': string, 'event_object_catalog': string, 'event_object_schema': string, 'event_object_table': string}>>})."
+count = 1
+
+[[issues]]
+file = "src/Metadata/Source.php"
+code = "property-type-coercion"
+message = "A value of a less specific type `array{'columns'?: array<string, array<string, array<string, array{'character_maximum_length': int|null|string, 'character_octet_length': int|null|string, 'column_default': bool|int|null|string, 'data_type': string, 'erratas': array<string, mixed>, 'is_nullable': bool|null, 'numeric_precision': int|null|string, 'numeric_scale': int|null|string, 'numeric_unsigned': bool|null, 'ordinal_position': int|null|string}>>>, 'constraint_keys'?: array<string, list<array{'column_name': string, 'constraint_name': string, 'ordinal_position': int, 'table_name': string}>>, 'constraint_references'?: array<string, list<array{'constraint_name': string, 'delete_rule': string, 'referenced_column_name': string, 'referenced_table_name': string, 'update_rule': string}>>, 'constraints': non-empty-array<string, array<string, array<array-key, array{'check_clause'?: mixed, 'columns'?: list<mixed>, 'constraint_name'?: mixed, 'constraint_type'?: mixed, 'delete_rule'?: mixed, 'match_option'?: mixed, 'referenced_columns'?: list<mixed>, 'referenced_table_name'?: mixed, 'referenced_table_schema'?: mixed, 'table_name'?: mixed, 'update_rule'?: mixed}>>>, 'schemas'?: list<string>, 'table_names'?: array<string, array<string, array{'check_option'?: null|string, 'is_updatable'?: bool|null, 'table_type': string, 'view_definition'?: null|string}>>, 'triggers'?: array<string, array<string, array{'action_condition': null|string, 'action_order': string, 'action_orientation': string, 'action_reference_new_row': string, 'action_reference_new_table': null|string, 'action_reference_old_row': string, 'action_reference_old_table': null|string, 'action_statement': string, 'action_timing': string, 'created': DateTime|null, 'event_manipulation': string, 'event_object_catalog': string, 'event_object_schema': string, 'event_object_table': string}>>}` is being assigned to property `$data` (array{'columns'?: array<string, array<string, array<string, array{'character_maximum_length': int|null|string, 'character_octet_length': int|null|string, 'column_default': bool|int|null|string, 'data_type': string, 'erratas': array<string, mixed>, 'is_nullable': bool|null, 'numeric_precision': int|null|string, 'numeric_scale': int|null|string, 'numeric_unsigned': bool|null, 'ordinal_position': int|null|string}>>>, 'constraint_keys'?: array<string, list<array{'column_name': string, 'constraint_name': string, 'ordinal_position': int, 'table_name': string}>>, 'constraint_references'?: array<string, list<array{'constraint_name': string, 'delete_rule': string, 'referenced_column_name': string, 'referenced_table_name': string, 'update_rule': string}>>, 'constraints'?: array<string, array<string, array<string, array{'check_clause'?: string, 'columns'?: list<string>, 'constraint_type'?: string, 'delete_rule'?: string, 'match_option'?: string, 'referenced_columns'?: list<string>, 'referenced_table_name'?: string, 'referenced_table_schema'?: string, 'update_rule'?: string}>>>, 'schemas'?: list<string>, 'table_names'?: array<string, array<string, array{'check_option'?: null|string, 'is_updatable'?: bool|null, 'table_type': string, 'view_definition'?: null|string}>>, 'triggers'?: array<string, array<string, array{'action_condition': null|string, 'action_order': string, 'action_orientation': string, 'action_reference_new_row': string, 'action_reference_new_table': null|string, 'action_reference_old_row': string, 'action_reference_old_table': null|string, 'action_statement': string, 'action_timing': string, 'created': DateTime|null, 'event_manipulation': string, 'event_object_catalog': string, 'event_object_schema': string, 'event_object_table': string}>>})."
+count = 1
+
+[[issues]]
+file = "src/Metadata/Source.php"
+code = "property-type-coercion"
+message = "A value of a less specific type `array{'columns'?: array<string, array<string, array<string, array{'character_maximum_length': int|null|string, 'character_octet_length': int|null|string, 'column_default': bool|int|null|string, 'data_type': string, 'erratas': array<string, mixed>, 'is_nullable': bool|null, 'numeric_precision': int|null|string, 'numeric_scale': int|null|string, 'numeric_unsigned': bool|null, 'ordinal_position': int|null|string}>>>, 'constraint_keys'?: array<string, list<array{'column_name': string, 'constraint_name': string, 'ordinal_position': int, 'table_name': string}>>, 'constraint_references'?: array<string, list<array{'constraint_name': string, 'delete_rule': string, 'referenced_column_name': string, 'referenced_table_name': string, 'update_rule': string}>>, 'constraints'?: array<string, array<string, array<string, array{'check_clause'?: string, 'columns'?: list<string>, 'constraint_type'?: string, 'delete_rule'?: string, 'match_option'?: string, 'referenced_columns'?: list<string>, 'referenced_table_name'?: string, 'referenced_table_schema'?: string, 'update_rule'?: string}>>>, 'schemas'?: list<string>, 'table_names': non-empty-array<string, array<array-key, array{'check_option'?: mixed, 'is_updatable'?: bool|null, 'table_type': mixed, 'view_definition'?: mixed}>>, 'triggers'?: array<string, array<string, array{'action_condition': null|string, 'action_order': string, 'action_orientation': string, 'action_reference_new_row': string, 'action_reference_new_table': null|string, 'action_reference_old_row': string, 'action_reference_old_table': null|string, 'action_statement': string, 'action_timing': string, 'created': DateTime|null, 'event_manipulation': string, 'event_object_catalog': string, 'event_object_schema': string, 'event_object_table': string}>>}` is being assigned to property `$data` (array{'columns'?: array<string, array<string, array<string, array{'character_maximum_length': int|null|string, 'character_octet_length': int|null|string, 'column_default': bool|int|null|string, 'data_type': string, 'erratas': array<string, mixed>, 'is_nullable': bool|null, 'numeric_precision': int|null|string, 'numeric_scale': int|null|string, 'numeric_unsigned': bool|null, 'ordinal_position': int|null|string}>>>, 'constraint_keys'?: array<string, list<array{'column_name': string, 'constraint_name': string, 'ordinal_position': int, 'table_name': string}>>, 'constraint_references'?: array<string, list<array{'constraint_name': string, 'delete_rule': string, 'referenced_column_name': string, 'referenced_table_name': string, 'update_rule': string}>>, 'constraints'?: array<string, array<string, array<string, array{'check_clause'?: string, 'columns'?: list<string>, 'constraint_type'?: string, 'delete_rule'?: string, 'match_option'?: string, 'referenced_columns'?: list<string>, 'referenced_table_name'?: string, 'referenced_table_schema'?: string, 'update_rule'?: string}>>>, 'schemas'?: list<string>, 'table_names'?: array<string, array<string, array{'check_option'?: null|string, 'is_updatable'?: bool|null, 'table_type': string, 'view_definition'?: null|string}>>, 'triggers'?: array<string, array<string, array{'action_condition': null|string, 'action_order': string, 'action_orientation': string, 'action_reference_new_row': string, 'action_reference_new_table': null|string, 'action_reference_old_row': string, 'action_reference_old_table': null|string, 'action_statement': string, 'action_timing': string, 'created': DateTime|null, 'event_manipulation': string, 'event_object_catalog': string, 'event_object_schema': string, 'event_object_table': string}>>})."
+count = 1
+
+[[issues]]
+file = "src/Metadata/Source.php"
+code = "property-type-coercion"
+message = "A value of a less specific type `array{'columns'?: array<string, array<string, array<string, array{'character_maximum_length': int|null|string, 'character_octet_length': int|null|string, 'column_default': bool|int|null|string, 'data_type': string, 'erratas': array<string, mixed>, 'is_nullable': bool|null, 'numeric_precision': int|null|string, 'numeric_scale': int|null|string, 'numeric_unsigned': bool|null, 'ordinal_position': int|null|string}>>>, 'constraint_keys'?: array<string, list<array{'column_name': string, 'constraint_name': string, 'ordinal_position': int, 'table_name': string}>>, 'constraint_references'?: array<string, list<array{'constraint_name': string, 'delete_rule': string, 'referenced_column_name': string, 'referenced_table_name': string, 'update_rule': string}>>, 'constraints'?: array<string, array<string, array<string, array{'check_clause'?: string, 'columns'?: list<string>, 'constraint_type'?: string, 'delete_rule'?: string, 'match_option'?: string, 'referenced_columns'?: list<string>, 'referenced_table_name'?: string, 'referenced_table_schema'?: string, 'update_rule'?: string}>>>, 'schemas'?: list<string>, 'table_names'?: array<string, array<string, array{'check_option'?: null|string, 'is_updatable'?: bool|null, 'table_type': string, 'view_definition'?: null|string}>>, 'triggers': non-empty-array<string, array<array-key, array{'action_condition': mixed, 'action_order': mixed, 'action_orientation': mixed, 'action_reference_new_row': string, 'action_reference_new_table': mixed, 'action_reference_old_row': string, 'action_reference_old_table': mixed, 'action_statement': mixed, 'action_timing': mixed, 'created': DateTime|null, 'event_manipulation': mixed, 'event_object_catalog': mixed, 'event_object_schema': mixed, 'event_object_table': mixed}|array{'action_reference_new_row': string('NEW'), 'action_reference_old_row': string('OLD'), 'created': DateTime|null, ...<string, mixed>}>>}` is being assigned to property `$data` (array{'columns'?: array<string, array<string, array<string, array{'character_maximum_length': int|null|string, 'character_octet_length': int|null|string, 'column_default': bool|int|null|string, 'data_type': string, 'erratas': array<string, mixed>, 'is_nullable': bool|null, 'numeric_precision': int|null|string, 'numeric_scale': int|null|string, 'numeric_unsigned': bool|null, 'ordinal_position': int|null|string}>>>, 'constraint_keys'?: array<string, list<array{'column_name': string, 'constraint_name': string, 'ordinal_position': int, 'table_name': string}>>, 'constraint_references'?: array<string, list<array{'constraint_name': string, 'delete_rule': string, 'referenced_column_name': string, 'referenced_table_name': string, 'update_rule': string}>>, 'constraints'?: array<string, array<string, array<string, array{'check_clause'?: string, 'columns'?: list<string>, 'constraint_type'?: string, 'delete_rule'?: string, 'match_option'?: string, 'referenced_columns'?: list<string>, 'referenced_table_name'?: string, 'referenced_table_schema'?: string, 'update_rule'?: string}>>>, 'schemas'?: list<string>, 'table_names'?: array<string, array<string, array{'check_option'?: null|string, 'is_updatable'?: bool|null, 'table_type': string, 'view_definition'?: null|string}>>, 'triggers'?: array<string, array<string, array{'action_condition': null|string, 'action_order': string, 'action_orientation': string, 'action_reference_new_row': string, 'action_reference_new_table': null|string, 'action_reference_old_row': string, 'action_reference_old_table': null|string, 'action_statement': string, 'action_timing': string, 'created': DateTime|null, 'event_manipulation': string, 'event_object_catalog': string, 'event_object_schema': string, 'event_object_table': string}>>})."
+count = 1
+
+[[issues]]
+file = "src/Metadata/Source.php"
+code = "reference-constraint-violation"
+message = "Invalid assignment to by-reference parameter `$c`."
+count = 7
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "class-must-be-final"
+message = 'Class `PhpDb\Pgsql\Pdo\Connection` should be declared `final`.'
+count = 1
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "imprecise-type"
+message = "Type `array` in parameter `$connectionParameters` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "invalid-type-cast"
+message = "Casting `mixed` to `array`."
+count = 1
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "less-specific-argument"
+message = "Argument type mismatch for argument #1 of `strtolower`: expected `string`, but provided type `array-key` is less specific."
+count = 1
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #1 of `array_diff_key`: expected `array<('K.array_diff_key() extends array-key), ('V.array_diff_key() extends mixed)>`, but found `mixed`."
+count = 1
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #1 of `strtolower`: expected `string`, but found `mixed`."
+count = 1
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "mixed-argument"
+message = "Invalid argument type for argument #4 of `PDO::__construct`: expected `array<array-key, mixed>|null`, but found `mixed`."
+count = 1
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "mixed-array-assignment"
+message = "Unsafe array assignment on type `mixed`."
+count = 1
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "mixed-assignment"
+message = "Assigning `mixed` type to a variable may lead to unexpected behavior."
+count = 4
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `PhpDb\Pgsql\Pdo\Connection::getCurrentSchema`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `PhpDb\Pgsql\Pdo\Connection::getLastGeneratedValue`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "possible-method-access-on-null"
+message = "Attempting to call a method on `null`."
+count = 2
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "redundant-condition"
+message = "This condition (type `true`) will always evaluate to true."
+count = 2
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PDOException` in `PhpDb\Pgsql\Pdo\Connection::getCurrentSchema`.'
+count = 1
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PhpDb\Adapter\Exception\InvalidConnectionParametersException` in `PhpDb\Pgsql\Pdo\Connection::getCurrentSchema`.'
+count = 1
+
+[[issues]]
+file = "src/Pdo/Connection.php"
+code = "unhandled-thrown-type"
+message = 'Potentially unhandled exception `PhpDb\Adapter\Exception\RuntimeException` in `PhpDb\Pgsql\Pdo\Connection::getCurrentSchema`.'
+count = 1
+
+[[issues]]
+file = "src/Pdo/Driver.php"
+code = "class-must-be-final"
+message = 'Class `PhpDb\Pgsql\Pdo\Driver` should be declared `final`.'
+count = 1
+
+[[issues]]
+file = "src/Pdo/Driver.php"
+code = "invalid-property-assignment-value"
+message = 'Invalid type for property `$connection`: expected `(PhpDb\Adapter\Driver\PdoConnectionInterface&PhpDb\Adapter\Driver\AbstractConnection&PhpDb\Adapter\Driver\PdoDriverAwareInterface)|PDO`, but got `(PhpDb\Adapter\Driver\PdoConnectionInterface&PhpDb\Adapter\Driver\PdoDriverAwareInterface)|PDO`.'
+count = 1
+
+[[issues]]
+file = "src/Pdo/Driver.php"
+code = "mixed-argument"
+message = 'Invalid argument type for argument #2 of `PhpDb\Adapter\Driver\Pdo\Result::initialize`: expected `false|int|null|string`, but found `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Pdo/Driver.php"
+code = "non-existent-method"
+message = "Method `getlastgeneratedvalue` does not exist on type `PDO`."
+count = 1
+
+[[issues]]
+file = "src/Pdo/Driver.php"
+code = "possibly-invalid-argument"
+message = 'Possible argument type mismatch for argument #1 of `PhpDb\Adapter\Driver\Pdo\Result::initialize`: expected `PDOStatement`, but possibly received `PDOStatement|resource`.'
+count = 1
+
+[[issues]]
+file = "src/Result.php"
+code = "class-must-be-final"
+message = 'Class `PhpDb\Pgsql\Result` should be declared `final`.'
+count = 1
+
+[[issues]]
+file = "src/Result.php"
+code = "imprecise-type"
+message = "Type `array` in return type of `current` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Result.php"
+code = "missing-constructor"
+message = 'Class `PhpDb\Pgsql\Result` has typed properties without default values but no constructor to initialize them.'
+count = 1
+
+[[issues]]
+file = "src/Result.php"
+code = "missing-override-attribute"
+message = 'Missing `#[Override]` attribute on overriding method `PhpDb\Pgsql\Result::getResource`.'
+count = 1
+
+[[issues]]
+file = "src/Result.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `PhpDb\Pgsql\Result::getGeneratedValue`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "src/Statement.php"
+code = "class-must-be-final"
+message = 'Class `PhpDb\Pgsql\Statement` should be declared `final`.'
+count = 1
+
+[[issues]]
+file = "src/Statement.php"
+code = "docblock-type-mismatch"
+message = 'Docblock return type `false|resource` is incompatible with native return type `PgSql\Result|false`.'
+count = 1
+
+[[issues]]
+file = "src/Statement.php"
+code = "imprecise-type"
+message = "Type `array` in parameter `$options` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Statement.php"
+code = "imprecise-type"
+message = "Type `array` in parameter `$parameters` is imprecise, equivalent to `array<array-key, mixed>`."
+count = 1
+
+[[issues]]
+file = "src/Statement.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `PhpDb\Adapter\Driver\DriverInterface::createResult`: expected `resource`, but found `PgSql\Result`.'
+count = 1
+
+[[issues]]
+file = "src/Statement.php"
+code = "invalid-property-assignment-value"
+message = "Invalid type for property `$sql`: expected `string`, but got `null|string`."
+count = 2
+
+[[issues]]
+file = "src/Statement.php"
+code = "invalid-return-statement"
+message = 'Invalid return type for function `PhpDb\Pgsql\Statement::getResource`: expected `false|resource`, but found `PgSql\Result|false`.'
+count = 1
+
+[[issues]]
+file = "src/Statement.php"
+code = "invalid-type-cast"
+message = "Casting type `null` to `array` will produce an empty array."
+count = 1
+
+[[issues]]
+file = "src/Statement.php"
+code = "mixed-property-type-coercion"
+message = "A value with a less specific type `nonnull` is being assigned to property `$bufferResults` (bool)."
+count = 1
+
+[[issues]]
+file = "src/Statement.php"
+code = "possibly-null-argument"
+message = "Argument #3 of function `pg_prepare` is possibly `null`, but parameter type `string` does not accept it."
+count = 1
+
+[[issues]]
+file = "src/Statement.php"
+code = "uninitialized-property"
+message = 'Property `$driver` is not initialized in the constructor of class `PhpDb\Pgsql\Statement`.'
+count = 1
+
+[[issues]]
+file = "src/Statement.php"
+code = "uninitialized-property"
+message = 'Property `$pgsql` is not initialized in the constructor of class `PhpDb\Pgsql\Statement`.'
+count = 1
+
+[[issues]]
+file = "src/Statement.php"
+code = "uninitialized-property"
+message = 'Property `$resource` is not initialized in the constructor of class `PhpDb\Pgsql\Statement`.'
+count = 1
+
+[[issues]]
+file = "src/Statement.php"
+code = "uninitialized-property"
+message = 'Property `$sql` is not initialized in the constructor of class `PhpDb\Pgsql\Statement`.'
+count = 1
+
+[[issues]]
+file = "vendor/php-db/phpdb/src/Adapter/Driver/AbstractConnection.php"
+code = "uninitialized-property"
+message = 'Property `$driverName` is not initialized in the constructor of class `PhpDb\Pgsql\Connection`.'
+count = 1
+
+[[issues]]
+file = "vendor/php-db/phpdb/src/Adapter/Driver/AbstractConnection.php"
+code = "uninitialized-property"
+message = 'Property `$driverName` is not initialized in the constructor of class `PhpDb\Pgsql\Pdo\Connection`.'
+count = 1
+
+[[issues]]
+file = "vendor/php-db/phpdb/src/Adapter/Driver/Pdo/AbstractPdo.php"
+code = "uninitialized-property"
+message = 'Property `$profiler` is not initialized in the constructor of class `PhpDb\Pgsql\Pdo\Driver`.'
+count = 1
+
+[[issues]]
+file = "vendor/php-db/phpdb/src/Adapter/Driver/Pdo/AbstractPdoConnection.php"
+code = "uninitialized-property"
+message = 'Property `$dsn` is not initialized in the constructor of class `PhpDb\Pgsql\Pdo\Connection`.'
+count = 1

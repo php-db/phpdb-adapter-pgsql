@@ -10,6 +10,7 @@ use PhpDb\TableGateway\Feature\SequenceFeature;
 use PhpDb\TableGateway\TableGateway;
 use PhpDbTestAsset\Pgsql\SetupTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(TableGateway::class)]
@@ -17,7 +18,8 @@ final class TableGatewayTest extends TestCase
 {
     use SetupTrait;
 
-    public function testLastInsertValue(): void
+    #[Test]
+    public function lastInsertValue(): void
     {
         $table      = new TableIdentifier('test_seq');
         $featureSet = new FeatureSet();
@@ -26,9 +28,9 @@ final class TableGatewayTest extends TestCase
         $tableGateway = new TableGateway($table, $this->getAdapter(self::PDO_ADAPTER), $featureSet);
 
         $tableGateway->insert(['foo' => 'bar']);
-        self::assertSame(1, $tableGateway->getLastInsertValue());
+        static::assertSame(1, $tableGateway->getLastInsertValue());
 
         $tableGateway->insert(['foo' => 'baz']);
-        self::assertSame(2, $tableGateway->getLastInsertValue());
+        static::assertSame(2, $tableGateway->getLastInsertValue());
     }
 }

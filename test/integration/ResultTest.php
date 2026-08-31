@@ -8,6 +8,7 @@ use PhpDb\Adapter\Exception;
 use PhpDb\Pgsql\Result;
 use PhpDbTestAsset\Pgsql\SetupTrait;
 use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 #[CoversMethod(Result::class, 'getQueryResult')]
@@ -16,14 +17,16 @@ class ResultTest extends TestCase
 {
     use SetupTrait;
 
-    public function testGetQueryResultSeedsTheResultSetFromASelect(): void
+    #[Test]
+    public function aStatementReturningNoFieldsIsNotAQueryResult(): void
     {
-        $result = $this->getAdapter()->executeQuery('SELECT id, name, value FROM test');
+        $result = $this->getAdapter()->executeQuery('SET search_path TO public');
 
-        self::assertSame($result->getFieldCount(), $result->getQueryResult()->getFieldCount());
+        static::assertFalse($result->isQueryResult());
     }
 
-    public function testGetQueryResultIteratesTheSelectedRows(): void
+    #[Test]
+    public function getQueryResultIteratesTheSelectedRows(): void
     {
         $result = $this->getAdapter()->executeQuery('SELECT name FROM test ORDER BY id');
 
@@ -32,26 +35,28 @@ class ResultTest extends TestCase
             $names[] = $row['name'];
         }
 
-        self::assertSame(['foo', 'bar'], $names);
+        static::assertSame(['foo', 'bar'], $names);
     }
 
-    public function testAStatementReturningNoFieldsIsNotAQueryResult(): void
-    {
-        $result = $this->getAdapter()->executeQuery('SET search_path TO public');
-
-        self::assertFalse($result->isQueryResult());
-    }
-
-    public function testGetQueryResultRejectsAStatementThatReturnsNoFields(): void
+    #[Test]
+    public function getQueryResultRejectsAStatementThatReturnsNoFields(): void
     {
         $result = $this->getAdapter()->executeQuery('SET search_path TO public');
 
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage(
             'Cannot produce a query result set from a result that is not a query result;'
-                . ' check isQueryResult() first'
+                . ' check isQueryResult() first',
         );
 
         $result->getQueryResult();
+    }
+
+    #[Test]
+    public function getQueryResultSeedsTheResultSetFromASelect(): void
+    {
+        $result = $this->getAdapter()->executeQuery('SELECT id, name, value FROM test');
+
+        static::assertSame($result->getFieldCount(), $result->getQueryResult()->getFieldCount());
     }
 }

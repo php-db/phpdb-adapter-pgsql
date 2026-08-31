@@ -21,14 +21,6 @@ use PhpDb\Pgsql\Pdo\Driver as PdoDriver;
  */
 final readonly class ConfigProvider
 {
-    public function __invoke(): array
-    {
-        return [
-            'dependencies' => $this->getDependencies(),
-            //AdapterInterface::class => $this->getConfig(),
-        ];
-    }
-
     public function getConfig(): array
     {
         return [
@@ -95,6 +87,14 @@ final readonly class ConfigProvider
                 // Provide the following if you wish to override the ResultSet implementation
                 //ResultSetInterface::class => YourCustomResultSetFactory::class,
             ],
+        ];
+    }
+
+    public function __invoke(): array
+    {
+        return [
+            'dependencies' => $this->getDependencies(),
+            //AdapterInterface::class => $this->getConfig(),
         ];
     }
 }
