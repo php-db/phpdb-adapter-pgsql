@@ -22,7 +22,7 @@ final class PlatformInterfaceFactory
         $driver = $options['driver'] ?? null;
         if (
             ! $driver instanceof Pgsql\Driver
-                && ! $driver instanceof Pgsql\Pdo\Driver
+            && ! $driver instanceof Pgsql\Pdo\Driver
         ) {
             // todo: Once latest PR is merged for 0.5.0 update to use PhpDB\Exception\ContainerException
             throw ContainerException::forService(

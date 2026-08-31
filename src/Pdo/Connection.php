@@ -99,8 +99,8 @@ class Connection extends AbstractPdoConnection
 
         if (
             ! str_contains($dsn, 'host=')
-                && ! str_contains($dsn, 'dbname=')
-                && ! str_contains($dsn, 'user=')
+            && ! str_contains($dsn, 'dbname=')
+            && ! str_contains($dsn, 'user=')
         ) {
             throw new Exception\InvalidConnectionParametersException(
                 'A dsn was not provided or could not be constructed from your parameters',
