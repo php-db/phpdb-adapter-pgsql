@@ -18,7 +18,8 @@ class ResultTest extends TestCase
     {
         $prototype = new ResultSet();
 
-        $resultSet = (new ResultStub(true, 1))->getQueryResult($prototype);
+        $result    = new ResultStub(true, 1);
+        $resultSet = $result->getQueryResult($prototype);
 
         self::assertNotSame($prototype, $resultSet);
     }
@@ -31,12 +32,14 @@ class ResultTest extends TestCase
                 . ' check isQueryResult() first',
         );
 
-        (new ResultStub(false))->getQueryResult();
+        $result = new ResultStub(false);
+        $result->getQueryResult();
     }
 
     public function testGetQueryResultSeedsTheResultSetFromTheResult(): void
     {
-        $resultSet = (new ResultStub(true, 3))->getQueryResult();
+        $result    = new ResultStub(true, 3);
+        $resultSet = $result->getQueryResult();
 
         self::assertSame(3, $resultSet->getFieldCount());
     }
